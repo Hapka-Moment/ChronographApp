@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#f5f5f5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Установка массы снаряда"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/currentMassText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Текущая масса: 0.25 грамм"
+            android:textSize="16sp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/mass_display_background"
+            android:padding="24dp"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/massDigit1Up"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="↑"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/massDigit1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/digit_background_normal" />
+
+                <Button
+                    android:id="@+id/massDigit1Down"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="↓"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginStart="16dp">
+
+                <Button
+                    android:id="@+id/massDigit2Up"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="↑"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/massDigit2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/digit_background_normal" />
+
+                <Button
+                    android:id="@+id/massDigit2Down"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="↓"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="."
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginStart="16dp">
+
+                <Button
+                    android:id="@+id/massDigit3Up"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="↑"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/massDigit3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/digit_background_normal" />
+
+                <Button
+                    android:id="@+id/massDigit3Down"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="↓"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginStart="16dp">
+
+                <Button
+                    android:id="@+id/massDigit4Up"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="↑"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/massDigit4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/digit_background_normal" />
+
+                <Button
+                    android:id="@+id/massDigit4Down"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="↓"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/prevDigitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="← Пред. цифра"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/nextDigitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="След. цифра →" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/finalMassText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Масса: 0.00 грамм"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp"
+            android:background="#e3f2fd"
+            android:padding="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/resetButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Сброс"
+                android:backgroundTint="#ff9800"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="8dp"
+                android:onClick="onResetClick" />
+
+            <Button
+                android:id="@+id/applyButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Применить"
+                android:backgroundTint="#4caf50"
+                android:textColor="#ffffff"
+                android:layout_marginStart="8dp"
+                android:onClick="onApplyClick" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Отмена"
+                android:backgroundTint="#f44336"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="8dp"
+                android:onClick="onCancelClick" />
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Сохранить"
+                android:backgroundTint="#2196f3"
+                android:textColor="#ffffff"
+                android:layout_marginStart="8dp"
+                android:onClick="onSaveClick" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Используйте кнопки ↑↓ для изменения цифр\nНажимайте на цифры для выбора"
+            android:textSize="12sp"
+            android:textColor="#666666"
+            android:gravity="center"
+            android:layout_marginTop="24dp"
+            android:lineSpacingExtra="4dp" />
+
+    </LinearLayout>
+
+</ScrollView>

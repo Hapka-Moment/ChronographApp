@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#f5f5f5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Статус подключения -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:background="@drawable/status_background">
+
+            <ImageView
+                android:id="@+id/connectionStatusIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_bluetooth_disconnected" />
+
+            <TextView
+                android:id="@+id/connectionStatusText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="Не подключено"
+                android:textSize="16sp"
+                android:textColor="#666" />
+
+            <Button
+                android:id="@+id/connectButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Подключить" />
+
+        </LinearLayout>
+
+        <!-- Основные показатели -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <!-- Скорость -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/metric_background"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="СКОРОСТЬ"
+                    android:textSize="12sp"
+                    android:textColor="#666"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/velocityText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="---"
+                    android:textSize="32sp"
+                    android:textColor="#2196F3"
+                    android:textStyle="bold"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="м/с"
+                    android:textSize="12sp"
+                    android:textColor="#666" />
+
+            </LinearLayout>
+
+            <!-- Энергия -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/metric_background"
+                android:padding="16dp"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ЭНЕРГИЯ"
+                    android:textSize="12sp"
+                    android:textColor="#666"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/energyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="---"
+                    android:textSize="32sp"
+                    android:textColor="#4CAF50"
+                    android:textStyle="bold"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Дж"
+                    android:textSize="12sp"
+                    android:textColor="#666" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Вторичные показатели -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <!-- Скорострельность -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/metric_background"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ТЕМП"
+                    android:textSize="10sp"
+                    android:textColor="#666"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/rpmText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="---"
+                    android:textSize="20sp"
+                    android:textColor="#FF9800"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="выстр/мин"
+                    android:textSize="10sp"
+                    android:textColor="#666" />
+
+            </LinearLayout>
+
+            <!-- Счетчик -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/metric_background"
+                android:padding="12dp"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ВЫСТРЕЛЫ"
+                    android:textSize="10sp"
+                    android:textColor="#666"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/shotCountText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="20sp"
+                    android:textColor="#9C27B0"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="всего"
+                    android:textSize="10sp"
+                    android:textColor="#666" />
+
+            </LinearLayout>
+
+            <!-- Масса -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/metric_background"
+                android:padding="12dp"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="МАССА"
+                    android:textSize="10sp"
+                    android:textColor="#666"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/massText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.25"
+                    android:textSize="20sp"
+                    android:textColor="#795548"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="грамм"
+                    android:textSize="10sp"
+                    android:textColor="#666" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- График скорости (пока заглушка) -->
+        <LinearLayout
+            android:id="@+id/velocityChartPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/metric_background"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="График скорости\n(будет добавлен позже)"
+                android:textSize="16sp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- Кнопки управления -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/historyButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                android:text="История" />
+
+            <Button
+                android:id="@+id/settingsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                android:text="Настройки" />
+
+            <Button
+                android:id="@+id/massButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                android:text="Масса" />
+
+            <Button
+                android:id="@+id/resetButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                android:text="Сброс" />
+
+        </GridLayout>
+
+        <Button
+            android:id="@+id/fab"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:background="@drawable/fab_background"
+            android:text="⚖️"
+            android:textSize="20sp"
+            android:elevation="8dp" />
+
+    </LinearLayout>
+
+</ScrollView>

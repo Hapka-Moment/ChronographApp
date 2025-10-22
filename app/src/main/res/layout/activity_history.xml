@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f8f9fa">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="#ffffff"
+        android:elevation="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="История выстрелов"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/clearButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Очистить"
+                android:backgroundTint="#ff4444"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless" />
+
+            <Button
+                android:id="@+id/exportButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Экспорт"
+                android:backgroundTint="#4CAF50"
+                android:textColor="#ffffff"
+                style="@style/Widget.AppCompat.Button.Borderless" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#e3f2fd"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="СТАТИСТИКА СЕССИИ"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#1976d2"
+            android:textAllCaps="true"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/statsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Загрузка статистики..."
+            android:textSize="12sp"
+            android:textColor="#666666"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shotsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📊"
+            android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Нет данных о выстрелах"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="#666666" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Совершите несколько выстрелов чтобы увидеть историю"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:textColor="#999999"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</LinearLayout>

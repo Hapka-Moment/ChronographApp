@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Пункт меню "История" -->
+    <item
+        android:id="@+id/action_history"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="История выстрелов"
+        app:showAsAction="ifRoom" />
+
+    <!-- Пункт меню "Масса" -->
+    <item
+        android:id="@+id/action_mass"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Настройка массы"
+        app:showAsAction="ifRoom" />
+
+    <!-- Пункт меню "Подключение" -->
+    <item
+        android:id="@+id/action_connect"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Подключить Bluetooth"
+        app:showAsAction="ifRoom" />
+
+    <!-- Пункт меню "О программе" (в выпадающем меню) -->
+    <item
+        android:id="@+id/action_about"
+        android:title="О программе"
+        app:showAsAction="never" />
+
+</menu>
