@@ -93,7 +93,13 @@ public class MainActivity extends AppCompatActivity {
         resetButton = findViewById(R.id.resetButton);
 
         // Настройка FAB
-        fab = findViewById(R.id.fab);
+        try {
+            fab = findViewById(R.id.fab);
+        } catch (Exception e) {
+            // FAB не найден в layout - это нормально
+            fab = null;
+        }
+
     }
 
     private void setupBluetooth() {
