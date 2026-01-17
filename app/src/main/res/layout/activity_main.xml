@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!-- Верхняя панель с Toolbar -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,37 +49,24 @@
                 android:layout_height="1dp"
                 android:layout_weight="1" />
 
-            <!-- Статус подключения -->
+            <!-- Статус подключения в Toolbar -->
             <TextView
                 android:id="@+id/connectionStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="●"
-                android:textColor="#4CAF50"
+                android:textColor="#F44336"
                 android:textSize="14sp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/status_background"
-                android:padding="4dp" />
+                android:padding="4dp"
+                android:contentDescription="Статус подключения" />
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Основной контент -->
+    <!-- ВСТАВКА основного содержимого из content_dashboard.xml -->
     <include layout="@layout/content_dashboard" />
-
-    <!-- FAB кнопка -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_weight"
-        android:contentDescription="Настройка массы"
-        app:backgroundTint="#FF4081"
-        app:rippleColor="#F50057"
-        app:elevation="12dp"
-        app:tint="@android:color/white" />
 
 </LinearLayout>

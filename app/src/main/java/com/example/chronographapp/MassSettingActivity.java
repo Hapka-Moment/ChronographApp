@@ -245,11 +245,23 @@ public class MassSettingActivity extends AppCompatActivity {
         resultIntent.putExtra("new_mass", newMass);
         setResult(RESULT_OK, resultIntent);
 
+        // Отправляем команду на Arduino
+        sendMassToArduino(newMass);
+
         Toast.makeText(this,
                 String.format("Масса установлена: %.2fг", newMass),
                 Toast.LENGTH_SHORT).show();
 
         finish();
+    }
+
+    private void sendMassToArduino(float mass) {
+        // Получаем доступ к MainActivity для отправки команды
+        if (getParent() instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) getParent();
+            String massCommand = String.format("MASS:%.2f", mass);
+            mainActivity.sendCommandToArduino(massCommand);
+        }
     }
 
     private void updateCurrentMassDisplay() {
@@ -280,6 +292,9 @@ public class MassSettingActivity extends AppCompatActivity {
 
         currentMass = newMass;
         updateCurrentMassDisplay();
+
+        // Отправляем команду на Arduino
+        sendMassToArduino(newMass);
 
         Toast.makeText(this,
                 String.format("Масса применена: %.2fг", newMass),

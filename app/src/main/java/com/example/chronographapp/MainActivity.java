@@ -1,27 +1,30 @@
 package com.example.chronographapp;
 
 import android.bluetooth.BluetoothSocket;
-import java.util.UUID;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     // UI элементы
     private TextView velocityText, energyText, rpmText, shotCountText, massText;
     private TextView connectionStatusText, connectionStatusToolbar;
-    private Button connectButton, historyButton, settingsButton, massButton, resetButton;
-    private FloatingActionButton fab;
+    private ImageView connectionStatusIcon;
+    private Button connectButton, historyButton, massButton, resetButton;
 
     // Bluetooth
     private BluetoothAdapter bluetoothAdapter;
@@ -38,11 +41,17 @@ public class MainActivity extends AppCompatActivity {
     private ConnectedThread connectedThread;
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
+    // MAC-адрес HC-05 модуля - ЗАМЕНИТЕ НА СВОЙ!
+    private static final String HC05_MAC_ADDRESS = "00:18:E4:34:EF:18";
+
     // Данные
     private int shotCount = 0;
     private float currentMass = 0.25f;
     private List<Float> velocityHistory = new ArrayList<>();
     private List<Float> energyHistory = new ArrayList<>();
+
+    // Буфер для данных Bluetooth
+    private StringBuilder dataBuffer = new StringBuilder();
 
     // Handler для обновления UI из фоновых потоков
     private Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -85,20 +94,12 @@ public class MainActivity extends AppCompatActivity {
         shotCountText = findViewById(R.id.shotCountText);
         massText = findViewById(R.id.massText);
         connectionStatusText = findViewById(R.id.connectionStatusText);
+        connectionStatusIcon = findViewById(R.id.connectionStatusIcon);
 
         connectButton = findViewById(R.id.connectButton);
         historyButton = findViewById(R.id.historyButton);
-        settingsButton = findViewById(R.id.settingsButton);
         massButton = findViewById(R.id.massButton);
         resetButton = findViewById(R.id.resetButton);
-
-        // Настройка FAB
-        try {
-            fab = findViewById(R.id.fab);
-        } catch (Exception e) {
-            // FAB не найден в layout - это нормально
-            fab = null;
-        }
 
     }
 
@@ -115,80 +116,130 @@ public class MainActivity extends AppCompatActivity {
             updateConnectionStatus(false);
         } else {
             // Bluetooth доступен
-            connectionStatusText.setText("Готов к подключению");
+            connectionStatusText.setText("Не подключено");
+            connectButton.setText("ПОДКЛЮЧИТЬ");
             updateConnectionStatus(false);
         }
     }
 
     private void setupClickListeners() {
         // Кнопка подключения Bluetooth
-        connectButton.setOnClickListener(v -> connectToBluetoothDevice());
+        connectButton.setOnClickListener(v -> {
+            if (connectedThread != null && bluetoothSocket != null && bluetoothSocket.isConnected()) {
+                disconnectFromBluetoothDevice();
+            } else {
+                connectToBluetoothDevice();
+            }
+        });
 
         // Кнопка истории
         historyButton.setOnClickListener(v -> openHistoryActivity());
-
-        // Кнопка настроек
-        settingsButton.setOnClickListener(v -> {
-            Toast.makeText(this, "Настройки в разработке", Toast.LENGTH_SHORT).show();
-        });
 
         // Кнопка массы
         massButton.setOnClickListener(v -> openMassSettingsActivity());
 
         // Кнопка сброса
         resetButton.setOnClickListener(v -> resetCounter());
-
-        // FAB кнопка
-        if (fab != null) {
-            fab.setOnClickListener(v -> openMassSettingsActivity());
-        }
     }
 
-    //region Bluetooth методы
-
+    // Подключение к HC-05
     private void connectToBluetoothDevice() {
         if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
             Toast.makeText(this, "Включите Bluetooth", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Пока просто эмулируем подключение для теста
-        connectionStatusText.setText("Поиск устройств...");
-        updateConnectionStatus(false);
+        // Попытка подключиться к HC-05 по MAC-адресу
+        connectionStatusText.setText("Подключение...");
+        connectionStatusIcon.setColorFilter(Color.parseColor("#FF9800")); // Оранжевый - процесс подключения
+        connectButton.setEnabled(false);
 
-        // Имитация подключения через 2 секунды
-        mainHandler.postDelayed(() -> {
-            connectionStatusText.setText("Подключено (тестовый режим)");
-            connectButton.setText("Отключить");
-            updateConnectionStatus(true);
-
-            // Начинаем получать тестовые данные
-            startTestDataStream();
-        }, 2000);
-    }
-
-    private void startTestDataStream() {
-        // Эмуляция получения данных от хронографа
         new Thread(() -> {
             try {
-                for (int i = 0; i < 10; i++) {
-                    Thread.sleep(3000); // Каждые 3 секунды
+                BluetoothDevice device = bluetoothAdapter.getRemoteDevice(HC05_MAC_ADDRESS);
+                bluetoothSocket = device.createRfcommSocketToServiceRecord(MY_UUID);
 
-                    // Генерируем тестовые данные
-                    float velocity = 150 + (float) (Math.random() * 50); // 150-200 м/с
-                    float energy = (velocity * velocity * currentMass) / 2000; // E = (m*v^2)/2
+                // Отменяем discovery для ускорения подключения
+                bluetoothAdapter.cancelDiscovery();
 
-                    // Обновляем UI в главном потоке
-                    mainHandler.post(() -> {
-                        onNewShotData(velocity, energy);
-                    });
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                // Подключаемся
+                bluetoothSocket.connect();
+
+                // Успешное подключение
+                mainHandler.post(() -> {
+                    connectionStatusText.setText("Подключено к HC-05");
+                    connectButton.setText("ОТКЛЮЧИТЬ");
+                    connectButton.setEnabled(true);
+                    updateConnectionStatus(true);
+                    Toast.makeText(MainActivity.this, "Подключено к HC-05", Toast.LENGTH_SHORT).show();
+                });
+
+                // Запускаем поток для чтения данных
+                connectedThread = new ConnectedThread(bluetoothSocket);
+                connectedThread.start();
+
+            } catch (IOException e) {
+                mainHandler.post(() -> {
+                    connectionStatusText.setText("Ошибка подключения");
+                    connectButton.setText("ПОДКЛЮЧИТЬ");
+                    connectButton.setEnabled(true);
+                    updateConnectionStatus(false);
+                    Toast.makeText(MainActivity.this,
+                            "Не удалось подключиться: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                    Log.e("Bluetooth", "Ошибка подключения", e);
+                });
+            } catch (IllegalArgumentException e) {
+                mainHandler.post(() -> {
+                    connectionStatusText.setText("Неверный MAC-адрес");
+                    connectButton.setText("ПОДКЛЮЧИТЬ");
+                    connectButton.setEnabled(true);
+                    updateConnectionStatus(false);
+                    Toast.makeText(MainActivity.this,
+                            "Проверьте MAC-адрес HC-05 в настройках",
+                            Toast.LENGTH_LONG).show();
+                    Log.e("Bluetooth", "Неверный MAC-адрес", e);
+                });
             }
         }).start();
     }
 
+    // Отключение от HC-05
+    private void disconnectFromBluetoothDevice() {
+        if (connectedThread != null) {
+            connectedThread.cancel();
+            connectedThread = null;
+        }
+
+        if (bluetoothSocket != null) {
+            try {
+                bluetoothSocket.close();
+            } catch (IOException e) {
+                Log.e("Bluetooth", "Ошибка закрытия сокета", e);
+            }
+            bluetoothSocket = null;
+        }
+
+        connectionStatusText.setText("Не подключено");
+        connectButton.setText("ПОДКЛЮЧИТЬ");
+        updateConnectionStatus(false);
+        Toast.makeText(this, "Отключено от HC-05", Toast.LENGTH_SHORT).show();
+    }
+
+    // Отправка команды на Arduino (например, для установки массы)
+    public void sendCommandToArduino(String command) {
+        if (connectedThread != null && bluetoothSocket != null && bluetoothSocket.isConnected()) {
+            // Добавляем символ новой строки для Arduino
+            connectedThread.write((command + "\n").getBytes());
+            Log.d("Bluetooth", "Отправлена команда: " + command);
+        } else {
+            mainHandler.post(() -> {
+                Toast.makeText(this, "Не подключено к Arduino", Toast.LENGTH_SHORT).show();
+            });
+        }
+    }
+
+    // Обработка новых данных выстрела
     private void onNewShotData(float velocity, float energy) {
         // Увеличиваем счетчик выстрелов
         shotCount++;
@@ -197,22 +248,72 @@ public class MainActivity extends AppCompatActivity {
         velocityHistory.add(velocity);
         energyHistory.add(energy);
 
-        // Обновляем UI
-        updateShotData(velocity, energy);
+        // Обновляем UI в главном потоке
+        mainHandler.post(() -> {
+            updateShotData(velocity, energy);
 
-        // Показываем уведомление
-        Toast.makeText(this,
-                String.format("Выстрел #%d: %.1f м/с", shotCount, velocity),
-                Toast.LENGTH_SHORT).show();
+            // Показываем уведомление
+            Toast.makeText(this,
+                    String.format("Выстрел #%d: %.1f м/с", shotCount, velocity),
+                    Toast.LENGTH_SHORT).show();
+        });
     }
 
-    //endregion
+    // Парсинг данных от Arduino
+    private void processReceivedData(String rawData) {
+        dataBuffer.append(rawData);
+        String bufferContent = dataBuffer.toString();
+
+        // Логируем полученные данные
+        Log.d("Bluetooth", "Получено: " + bufferContent);
+
+        // Ищем в буфере полный пакет данных о выстреле
+        if (bufferContent.contains("Shot #") &&
+                bufferContent.contains("Speed: ") &&
+                bufferContent.contains("Energy: ")) {
+
+            try {
+                // Парсим номер выстрела
+                int shotIndex = bufferContent.indexOf("Shot #") + 6;
+                int shotEndLine = bufferContent.indexOf("\n", shotIndex);
+                if (shotEndLine == -1) return;
+
+                String shotStr = bufferContent.substring(shotIndex, shotEndLine).trim();
+                int shotNumber = Integer.parseInt(shotStr);
+
+                // Парсим скорость
+                int speedIndex = bufferContent.indexOf("Speed: ") + 7;
+                int speedEndLine = bufferContent.indexOf("\n", speedIndex);
+                if (speedEndLine == -1) return;
+
+                String speedStr = bufferContent.substring(speedIndex, speedEndLine).trim();
+                float velocity = Float.parseFloat(speedStr);
+
+                // Парсим энергию
+                int energyIndex = bufferContent.indexOf("Energy: ") + 8;
+                int energyEndLine = bufferContent.indexOf("\n", energyIndex);
+                if (energyEndLine == -1) energyEndLine = bufferContent.length();
+
+                String energyStr = bufferContent.substring(energyIndex, energyEndLine).trim();
+                float energy = Float.parseFloat(energyStr);
+
+                // Обрабатываем данные выстрела
+                onNewShotData(velocity, energy);
+
+            } catch (Exception e) {
+                Log.e("Bluetooth", "Ошибка парсинга данных: " + bufferContent, e);
+            } finally {
+                // Очищаем буфер для следующего пакета
+                dataBuffer.setLength(0);
+            }
+        }
+    }
 
     //region UI методы
 
     private void updateUI() {
         // Обновляем массу
-        massText.setText(String.format("%.2f", currentMass));
+        massText.setText(String.format(Locale.getDefault(), "%.2f", currentMass));
 
         // Сбрасываем остальные поля
         velocityText.setText("---");
@@ -222,13 +323,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateShotData(float velocity, float energy) {
-        velocityText.setText(String.format("%.1f", velocity));
-        energyText.setText(String.format("%.2f", energy));
+        velocityText.setText(String.format(Locale.getDefault(), "%.1f", velocity));
+        energyText.setText(String.format(Locale.getDefault(), "%.2f", energy));
         shotCountText.setText(String.valueOf(shotCount));
 
-        // Расчет RPM (простой вариант - 1 выстрел в 3 секунды = 20 выстр/мин)
-        float rpm = 20.0f;
-        rpmText.setText(String.format("%.0f", rpm));
+        // Расчет RPM на основе времени между выстрелами
+        if (velocityHistory.size() >= 2) {
+            // Простой расчет: если у нас есть хотя бы 2 выстрела в истории
+            // В реальной реализации нужно хранить timestamp выстрелов
+            float rpm = 20.0f; // Заглушка
+            rpmText.setText(String.format(Locale.getDefault(), "%.0f", rpm));
+        }
     }
 
     private void resetCounter() {
@@ -240,6 +345,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateConnectionStatus(boolean connected) {
+        // Обновляем Toolbar
         if (connectionStatusToolbar != null) {
             if (connected) {
                 connectionStatusToolbar.setText("●");
@@ -250,6 +356,22 @@ public class MainActivity extends AppCompatActivity {
                 connectionStatusToolbar.setTextColor(Color.RED);
                 connectionStatusToolbar.setContentDescription("Не подключено");
             }
+        }
+
+        // Обновляем главный экран
+        if (connected) {
+
+            connectionStatusText.setText("Подключено к HC-05");
+            // Установите зеленую иконку подключения
+            connectionStatusIcon.setColorFilter(Color.parseColor("#4CAF50"));
+            connectButton.setText("ОТКЛЮЧИТЬ");
+            connectButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#f44336")));
+        } else {
+            connectionStatusText.setText("Не подключено");
+            // Установите серую иконку отключения
+            connectionStatusIcon.setColorFilter(Color.parseColor("#757575"));
+            connectButton.setText("ПОДКЛЮЧИТЬ");
+            connectButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2196F3")));
         }
     }
 
@@ -306,7 +428,11 @@ public class MainActivity extends AppCompatActivity {
             openMassSettingsActivity();
             return true;
         } else if (id == R.id.action_connect) {
-            connectToBluetoothDevice();
+            if (connectedThread != null && bluetoothSocket != null && bluetoothSocket.isConnected()) {
+                disconnectFromBluetoothDevice();
+            } else {
+                connectToBluetoothDevice();
+            }
             return true;
         } else if (id == R.id.action_about) {
             showAboutDialog();
@@ -326,7 +452,7 @@ public class MainActivity extends AppCompatActivity {
                         "• Расчет энергии\n" +
                         "• Счетчик выстрелов\n" +
                         "• Настройка массы снаряда\n" +
-                        "• Bluetooth подключение\n" +
+                        "• Bluetooth подключение к HC-05\n" +
                         "• История выстрелов")
                 .setPositiveButton("OK", null)
                 .show();
@@ -343,7 +469,12 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             // Получаем новую массу из MassSettingActivity
             currentMass = data.getFloatExtra("new_mass", 0.25f);
-            massText.setText(String.format("%.2f", currentMass));
+            massText.setText(String.format(Locale.getDefault(), "%.2f", currentMass));
+
+            // Отправляем команду на Arduino для установки массы
+            String massCommand = String.format(Locale.US, "MASS:%.2f", currentMass);
+            sendCommandToArduino(massCommand);
+
             Toast.makeText(this, "Масса установлена: " + currentMass + "г", Toast.LENGTH_SHORT).show();
         }
     }
@@ -352,9 +483,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // Закрываем Bluetooth соединение при выходе
-        if (connectedThread != null) {
-            connectedThread.cancel();
-        }
+        disconnectFromBluetoothDevice();
     }
 
     //endregion
@@ -374,7 +503,7 @@ public class MainActivity extends AppCompatActivity {
                 tmpIn = socket.getInputStream();
                 tmpOut = socket.getOutputStream();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("Bluetooth", "Ошибка создания потоков", e);
             }
 
             mmInStream = tmpIn;
@@ -395,6 +524,17 @@ public class MainActivity extends AppCompatActivity {
                     mainHandler.post(() -> processReceivedData(receivedData));
 
                 } catch (IOException e) {
+                    Log.e("Bluetooth", "Поток чтения прерван", e);
+
+                    // Уведомляем UI об отключении
+                    mainHandler.post(() -> {
+                        connectionStatusText.setText("Соединение разорвано");
+                        connectButton.setText("ПОДКЛЮЧИТЬ");
+                        updateConnectionStatus(false);
+                        Toast.makeText(MainActivity.this,
+                                "Соединение с HC-05 разорвано",
+                                Toast.LENGTH_SHORT).show();
+                    });
                     break;
                 }
             }
@@ -403,34 +543,18 @@ public class MainActivity extends AppCompatActivity {
         public void write(byte[] bytes) {
             try {
                 mmOutStream.write(bytes);
+                Log.d("Bluetooth", "Данные отправлены: " + new String(bytes));
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("Bluetooth", "Ошибка отправки данных", e);
             }
         }
 
         public void cancel() {
             try {
-                bluetoothSocket.close();
+                if (mmInStream != null) mmInStream.close();
+                if (mmOutStream != null) mmOutStream.close();
             } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void processReceivedData(String data) {
-        // Здесь будет парсинг данных от Arduino
-        // Пока просто выводим в лог
-        System.out.println("Received: " + data);
-
-        // Пример парсинга данных от хронографа
-        if (data.contains("Speed: ")) {
-            try {
-                String speedStr = data.replace("Speed: ", "").trim();
-                float velocity = Float.parseFloat(speedStr);
-                float energy = (velocity * velocity * currentMass) / 2000;
-                onNewShotData(velocity, energy);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
+                Log.e("Bluetooth", "Ошибка закрытия потоков", e);
             }
         }
     }
