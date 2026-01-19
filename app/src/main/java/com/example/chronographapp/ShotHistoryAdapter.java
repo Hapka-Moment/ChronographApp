@@ -1,10 +1,8 @@
 package com.example.chronographapp;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,10 +12,6 @@ public class ShotHistoryAdapter extends RecyclerView.Adapter<ShotHistoryAdapter.
 
     private List<ShotData> shotList;
     private OnShotClickListener onShotClickListener;
-
-    private final int COLOR_HIGH_VELOCITY = Color.parseColor("#D32F2F");
-    private final int COLOR_MEDIUM_VELOCITY = Color.parseColor("#FF9800");
-    private final int COLOR_LOW_VELOCITY = Color.parseColor("#4CAF50");
 
     public interface OnShotClickListener {
         void onShotClick(int position, ShotData shot);
@@ -44,36 +38,16 @@ public class ShotHistoryAdapter extends RecyclerView.Adapter<ShotHistoryAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ShotData shot = shotList.get(position);
 
-        int displayNumber = shotList.size() - position;
-        holder.shotNumberText.setText(String.format("#%d", displayNumber));
+        // В новом дизайне отображаем номера с начала
+        holder.shotNumberText.setText(String.format("#%d", shot.getShotNumber()));
         holder.timestampText.setText(shot.getTimestamp());
         holder.velocityText.setText(String.format("%.1f м/с", shot.getVelocity()));
         holder.energyText.setText(String.format("%.2f Дж", shot.getEnergy()));
 
+        // Настройка цвета скорости
         setVelocityColor(holder.velocityText, shot.getVelocity());
-        setupAppearance(holder, position);
-        setupClickListeners(holder, shot, position);
-    }
 
-    private void setVelocityColor(TextView velocityText, float velocity) {
-        if (velocity > 180) {
-            velocityText.setTextColor(COLOR_HIGH_VELOCITY);
-        } else if (velocity > 160) {
-            velocityText.setTextColor(COLOR_MEDIUM_VELOCITY);
-        } else {
-            velocityText.setTextColor(COLOR_LOW_VELOCITY);
-        }
-    }
-
-    private void setupAppearance(ViewHolder holder, int position) {
-        if (position % 2 == 0) {
-            holder.container.setBackgroundColor(Color.parseColor("#F8F9FA"));
-        } else {
-            holder.container.setBackgroundColor(Color.WHITE);
-        }
-    }
-
-    private void setupClickListeners(ViewHolder holder, ShotData shot, int position) {
+        // Обработчики кликов
         holder.itemView.setOnClickListener(v -> {
             if (onShotClickListener != null) {
                 onShotClickListener.onShotClick(position, shot);
@@ -89,6 +63,23 @@ public class ShotHistoryAdapter extends RecyclerView.Adapter<ShotHistoryAdapter.
         });
     }
 
+    private void setVelocityColor(TextView velocityText, float velocity) {
+        // Используем цвета из glass палитры
+        int colorResource = R.color.glass_blue; // по умолчанию
+        if (velocity > 180) {
+            colorResource = R.color.glass_red;
+        } else if (velocity > 160) {
+            colorResource = R.color.glass_orange;
+        } else if (velocity > 140) {
+            colorResource = R.color.glass_green;
+        } else {
+            colorResource = R.color.glass_blue;
+        }
+
+        // Устанавливаем цвет через ресурс
+        velocityText.setTextColor(velocityText.getContext().getColor(colorResource));
+    }
+
     @Override
     public int getItemCount() {
         return shotList != null ? shotList.size() : 0;
@@ -101,8 +92,8 @@ public class ShotHistoryAdapter extends RecyclerView.Adapter<ShotHistoryAdapter.
 
     public void addShot(ShotData shot) {
         if (shotList != null) {
-            shotList.add(0, shot);
-            notifyItemInserted(0);
+            shotList.add(shot);
+            notifyItemInserted(shotList.size() - 1);
         }
     }
 
@@ -131,7 +122,6 @@ public class ShotHistoryAdapter extends RecyclerView.Adapter<ShotHistoryAdapter.
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout container;
         TextView shotNumberText;
         TextView timestampText;
         TextView velocityText;
@@ -139,7 +129,6 @@ public class ShotHistoryAdapter extends RecyclerView.Adapter<ShotHistoryAdapter.
 
         ViewHolder(View itemView) {
             super(itemView);
-            container = itemView.findViewById(R.id.container);
             shotNumberText = itemView.findViewById(R.id.shotNumberText);
             timestampText = itemView.findViewById(R.id.timestampText);
             velocityText = itemView.findViewById(R.id.velocityText);

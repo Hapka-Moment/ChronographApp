@@ -35,4 +35,5 @@
     <color name="status_connected">#FF00D4AA</color>
     <color name="status_disconnected">#FFFF4757</color>
     <color name="status_connecting">#FFFD7B54</color>
+
 </resources>

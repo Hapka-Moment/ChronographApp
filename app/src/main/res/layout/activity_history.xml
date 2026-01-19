@@ -1,129 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#f8f9fa">
+    android:background="@drawable/background_gradient"
+    android:padding="16dp">
 
-    <LinearLayout
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/glass_toolbar_background"
+        app:title="История выстрелов"
+        app:titleTextColor="@color/text_primary"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:elevation="0dp"
+        style="@style/Widget.MaterialComponents.Toolbar"/>
+
+    <!-- Карточка статистики -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="16dp"
-        android:background="#ffffff"
-        android:elevation="4dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="История выстрелов"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#333333" />
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        app:cardBackgroundColor="@color/glass_white_20"
+        app:cardCornerRadius="28dp"
+        app:strokeColor="@color/glass_white_30"
+        app:strokeWidth="1dp"
+        app:cardElevation="0dp"
+        style="@style/Widget.MaterialComponents.CardView">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <Button
-                android:id="@+id/clearButton"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Очистить"
-                android:backgroundTint="#ff4444"
-                android:textColor="#ffffff"
-                android:layout_marginEnd="8dp"
-                style="@style/Widget.AppCompat.Button.Borderless" />
+                android:text="СТАТИСТИКА СЕССИИ"
+                android:textSize="12sp"
+                android:textColor="@color/text_hint"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="12dp"/>
 
-            <Button
-                android:id="@+id/exportButton"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/statsText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Экспорт"
-                android:backgroundTint="#4CAF50"
-                android:textColor="#ffffff"
-                style="@style/Widget.AppCompat.Button.Borderless" />
-
+                android:text="Загрузка статистики..."
+                android:textSize="13sp"
+                android:textColor="@color/text_primary"
+                android:lineSpacingExtra="4dp"
+                android:background="@drawable/glass_stats_background"
+                android:padding="16dp"
+                android:gravity="center"/>
         </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
-
-    <LinearLayout
+    <!-- Карточка управления -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="#e3f2fd"
-        android:layout_margin="16dp">
+        android:layout_marginBottom="24dp"
+        app:cardBackgroundColor="@color/glass_white_20"
+        app:cardCornerRadius="28dp"
+        app:strokeColor="@color/glass_white_30"
+        app:strokeWidth="1dp"
+        app:cardElevation="0dp"
+        style="@style/Widget.MaterialComponents.CardView">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="СТАТИСТИКА СЕССИИ"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="#1976d2"
-            android:textAllCaps="true"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/statsText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Загрузка статистики..."
-            android:textSize="12sp"
-            android:textColor="#666666"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:lineSpacingExtra="4dp" />
+            android:padding="20dp">
 
-    </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clearButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Очистить"
+                android:textSize="13sp"
+                android:textColor="@color/text_primary"
+                app:icon="@drawable/ic_delete"
+                app:iconTint="@color/text_primary"
+                app:strokeColor="@color/glass_white_30"
+                app:strokeWidth="1dp"
+                app:cornerRadius="26dp"
+                app:backgroundTint="@color/glass_white_10"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/shotsRecyclerView"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exportButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Экспорт"
+                android:textSize="13sp"
+                android:textColor="@color/text_primary"
+                app:icon="@drawable/ic_export"
+                app:iconTint="@color/text_primary"
+                app:strokeColor="@color/glass_white_30"
+                app:strokeWidth="1dp"
+                app:cornerRadius="26dp"
+                app:backgroundTint="@color/glass_white_10"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Список выстрелов -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp" />
+        app:cardBackgroundColor="@color/glass_white_20"
+        app:cardCornerRadius="28dp"
+        app:strokeColor="@color/glass_white_30"
+        app:strokeWidth="1dp"
+        app:cardElevation="0dp"
+        style="@style/Widget.MaterialComponents.CardView">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shotsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:clipToPadding="false"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Состояние "пусто" -->
     <LinearLayout
         android:id="@+id/emptyState"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="32dp"
+        android:padding="48dp"
         android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="📊"
-            android:textSize="48sp" />
+            android:textSize="56sp"
+            android:layout_marginBottom="24dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Нет данных о выстрелах"
             android:textSize="18sp"
+            android:textColor="@color/text_primary"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            android:textColor="#666666" />
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Совершите несколько выстрелов чтобы увидеть историю"
+            android:text="Совершите несколько выстрелов\nчтобы увидеть историю"
             android:textSize="14sp"
-            android:layout_marginTop="8dp"
-            android:textColor="#999999"
-            android:gravity="center" />
-
+            android:textColor="@color/text_hint"
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="4dp"/>
     </LinearLayout>
 
 </LinearLayout>

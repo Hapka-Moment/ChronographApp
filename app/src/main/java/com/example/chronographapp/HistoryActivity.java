@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -58,15 +57,16 @@ public class HistoryActivity extends AppCompatActivity {
         statsText = findViewById(R.id.statsText);
         emptyState = findViewById(R.id.emptyState);
 
-        Button exportButton = findViewById(R.id.exportButton);
-        Button clearButton = findViewById(R.id.clearButton);
-
-        if (exportButton != null) {
-            exportButton.setOnClickListener(v -> exportData());
-        }
-
+        // Кнопки уже есть в новом макете, они настраиваются в XML
+        // Найдем их и установим обработчики
+        View clearButton = findViewById(R.id.clearButton);
         if (clearButton != null) {
             clearButton.setOnClickListener(v -> clearHistory());
+        }
+
+        View exportButton = findViewById(R.id.exportButton);
+        if (exportButton != null) {
+            exportButton.setOnClickListener(v -> exportData());
         }
     }
 

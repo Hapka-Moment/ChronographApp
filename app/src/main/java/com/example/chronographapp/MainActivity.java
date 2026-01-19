@@ -84,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // Находим статус подключения в Toolbar
-        connectionStatusToolbar = findViewById(R.id.connectionStatus);
     }
 
     private void initViews() {
@@ -390,41 +387,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateConnectionStatus(boolean connected) {
-        // Обновляем Toolbar
-        if (connectionStatusToolbar != null) {
-            if (connected) {
-                connectionStatusToolbar.setText("●");
-                connectionStatusToolbar.setTextColor(Color.GREEN);
-                connectionStatusToolbar.setContentDescription("Подключено");
-            } else {
-                connectionStatusToolbar.setText("●");
-                connectionStatusToolbar.setTextColor(Color.RED);
-                connectionStatusToolbar.setContentDescription("Не подключено");
-            }
-        }
-
-        // Обновляем главный экран
         if (connected) {
             if (connectionStatusText != null) {
                 connectionStatusText.setText("Подключено к HC-05");
             }
             if (connectionStatusIcon != null) {
-                connectionStatusIcon.setColorFilter(Color.parseColor("#4CAF50"));
+                connectionStatusIcon.setColorFilter(getColor(R.color.status_connected));
                 connectionStatusIcon.setImageResource(R.drawable.ic_bluetooth_connected);
             }
             if (connectionHintText != null) {
-                connectionHintText.setText("Нажмите для отключения");
+                connectionHintText.setText("ОТКЛЮЧИТЬ");
+                connectionHintText.setTextColor(getColor(R.color.status_connected));
             }
         } else {
             if (connectionStatusText != null) {
                 connectionStatusText.setText("Не подключено");
             }
             if (connectionStatusIcon != null) {
-                connectionStatusIcon.setColorFilter(Color.parseColor("#757575"));
-                connectionStatusIcon.setImageResource(R.drawable.ic_bluetooth_disconnected);
+                connectionStatusIcon.setColorFilter(getColor(R.color.text_primary));
+                connectionStatusIcon.setImageResource(R.drawable.ic_bluetooth);
             }
             if (connectionHintText != null) {
-                connectionHintText.setText("Нажмите для подключения");
+                connectionHintText.setText("ПОДКЛЮЧИТЬ");
+                connectionHintText.setTextColor(getColor(R.color.glass_blue));
             }
         }
     }

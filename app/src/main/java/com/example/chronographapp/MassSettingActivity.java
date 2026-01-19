@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import com.google.android.material.button.MaterialButton;
 
 public class MassSettingActivity extends AppCompatActivity {
 
@@ -100,7 +100,7 @@ public class MassSettingActivity extends AppCompatActivity {
     }
 
     private void setupDigitButton(final int digitIndex, int upButtonId, int downButtonId) {
-        Button upButton = findViewById(upButtonId);
+        MaterialButton upButton = findViewById(upButtonId);
         if (upButton != null) {
             upButton.setOnClickListener(v -> {
                 increaseDigit(digitIndex);
@@ -108,7 +108,7 @@ public class MassSettingActivity extends AppCompatActivity {
             });
         }
 
-        Button downButton = findViewById(downButtonId);
+        MaterialButton downButton = findViewById(downButtonId);
         if (downButton != null) {
             downButton.setOnClickListener(v -> {
                 decreaseDigit(digitIndex);
@@ -156,12 +156,12 @@ public class MassSettingActivity extends AppCompatActivity {
     }
 
     private void setupNavigationButtons() {
-        Button prevButton = findViewById(R.id.prevDigitButton);
+        MaterialButton prevButton = findViewById(R.id.prevDigitButton);
         if (prevButton != null) {
             prevButton.setOnClickListener(v -> navigateToPreviousDigit());
         }
 
-        Button nextButton = findViewById(R.id.nextDigitButton);
+        MaterialButton nextButton = findViewById(R.id.nextDigitButton);
         if (nextButton != null) {
             nextButton.setOnClickListener(v -> navigateToNextDigit());
         }
@@ -189,14 +189,16 @@ public class MassSettingActivity extends AppCompatActivity {
     }
 
     private void setSelectedDigit(int digitIndex) {
+        // Сброс фона у всех цифр
         for (TextView digitView : digitViews) {
-            digitView.setBackgroundResource(R.drawable.digit_background_normal);
-            digitView.setTextColor(getColor(android.R.color.black));
+            digitView.setBackgroundResource(R.drawable.circle_background_blue);
         }
 
-        digitViews[digitIndex].setBackgroundResource(R.drawable.digit_background_selected);
-        digitViews[digitIndex].setTextColor(getColor(android.R.color.white));
+        // Подсветка выбранной цифры - можно использовать другой drawable
+        digitViews[digitIndex].setBackgroundResource(R.drawable.circle_background_indicator);
         selectedDigit = digitIndex;
+
+        // Показать подсказку
         showDigitHint(digitIndex);
     }
 
@@ -294,7 +296,6 @@ public class MassSettingActivity extends AppCompatActivity {
         if (Math.abs(newMass - currentMass) > 0.001f) {
             showUnsavedChangesDialog();
         } else {
-            // Если изменений нет, завершаем активность
             setResult(RESULT_CANCELED);
             finish();
         }

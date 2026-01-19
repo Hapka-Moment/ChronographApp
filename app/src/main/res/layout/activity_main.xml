@@ -7,7 +7,7 @@
     android:background="@drawable/background_gradient"
     android:padding="16dp">
 
-    <!-- Анимированный AppBar -->
+    <!-- Toolbar -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         app:elevation="0dp"
         style="@style/Widget.MaterialComponents.Toolbar"/>
 
-    <!-- Карточка подключения в стиле Glass -->
+    <!-- Карточка подключения -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/connectionCard"
         android:layout_width="match_parent"
@@ -41,13 +41,13 @@
             android:padding="20dp"
             android:gravity="center_vertical">
 
-            <!-- Иконка Bluetooth (вместо стрелки) -->
+            <!-- Иконка Bluetooth -->
             <ImageView
                 android:id="@+id/connectionStatusIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_bluetooth"
-                android:tint="@color/text_primary"
+                android:tint="#FFFFFF"
                 android:background="@drawable/circle_background_blue"/>
 
             <LinearLayout
@@ -64,7 +64,7 @@
                     android:text="Не подключено"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@color/text_primary"
+                    android:textColor="#FFFFFF"
                     android:fontFamily="sans-serif-medium"/>
 
                 <TextView
@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:text="HC-05 хронограф"
                     android:textSize="14sp"
-                    android:textColor="@color/text_hint"
+                    android:textColor="#80FFFFFF"
                     android:layout_marginTop="2dp"/>
 
             </LinearLayout>
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:text="ПОДКЛЮЧИТЬ"
                 android:textSize="12sp"
-                android:textColor="@color/glass_blue"
+                android:textColor="#FF4A90E2"
                 android:textStyle="bold"
                 android:background="@drawable/pill_background_blue"
                 android:paddingHorizontal="16dp"
@@ -95,7 +95,7 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Основные показатели в стиле Glass -->
+    <!-- Основные показатели -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:text="ТЕКУЩИЙ ВЫСТРЕЛ"
                 android:textSize="11sp"
-                android:textColor="@color/text_hint"
+                android:textColor="#80FFFFFF"
                 android:textStyle="bold"
                 android:letterSpacing="0.1"
                 android:layout_marginBottom="20dp"/>
@@ -143,7 +143,7 @@
                         android:layout_height="wrap_content"
                         android:text="СКОРОСТЬ"
                         android:textSize="10sp"
-                        android:textColor="@color/text_hint"
+                        android:textColor="#80FFFFFF"
                         android:letterSpacing="0.08"
                         android:layout_marginBottom="4dp"/>
 
@@ -153,7 +153,7 @@
                         android:layout_height="wrap_content"
                         android:text="---"
                         android:textSize="44sp"
-                        android:textColor="@color/text_primary"
+                        android:textColor="#FFFFFF"
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-light"
                         android:letterSpacing="-0.02"/>
@@ -163,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:text="м/с"
                         android:textSize="12sp"
-                        android:textColor="@color/text_hint"
+                        android:textColor="#80FFFFFF"
                         android:layout_marginTop="2dp"/>
 
                 </LinearLayout>
@@ -173,7 +173,7 @@
                     android:layout_width="1dp"
                     android:layout_height="64dp"
                     android:layout_marginHorizontal="16dp"
-                    android:background="@color/glass_white_20"/>
+                    android:background="#33FFFFFF"/>
 
                 <!-- Энергия -->
                 <LinearLayout
@@ -188,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:text="ЭНЕРГИЯ"
                         android:textSize="10sp"
-                        android:textColor="@color/text_hint"
+                        android:textColor="#80FFFFFF"
                         android:letterSpacing="0.08"
                         android:layout_marginBottom="4dp"/>
 
@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:text="---"
                         android:textSize="44sp"
-                        android:textColor="@color/text_primary"
+                        android:textColor="#FFFFFF"
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-light"
                         android:letterSpacing="-0.02"/>
@@ -208,7 +208,7 @@
                         android:layout_height="wrap_content"
                         android:text="Дж"
                         android:textSize="12sp"
-                        android:textColor="@color/text_hint"
+                        android:textColor="#80FFFFFF"
                         android:layout_marginTop="2dp"/>
 
                 </LinearLayout>
@@ -220,8 +220,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@drawable/glass_stats_background"
-                android:padding="16dp"
-                android:cornerRadius="20dp">
+                android:padding="16dp">
 
                 <!-- Счетчик -->
                 <LinearLayout
@@ -236,7 +235,7 @@
                         android:layout_height="wrap_content"
                         android:text="СЧЕТЧИК"
                         android:textSize="9sp"
-                        android:textColor="@color/text_hint"
+                        android:textColor="#80FFFFFF"
                         android:letterSpacing="0.08"/>
 
                     <TextView
@@ -245,7 +244,7 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textSize="24sp"
-                        android:textColor="@color/text_primary"
+                        android:textColor="#FFFFFF"
                         android:textStyle="bold"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="2dp"/>
@@ -255,7 +254,7 @@
                         android:layout_height="wrap_content"
                         android:text="выстрелов"
                         android:textSize="9sp"
-                        android:textColor="@color/text_hint"/>
+                        android:textColor="#80FFFFFF"/>
 
                 </LinearLayout>
 
@@ -272,7 +271,7 @@
                         android:layout_height="wrap_content"
                         android:text="ТЕМП"
                         android:textSize="9sp"
-                        android:textColor="@color/text_hint"
+                        android:textColor="#80FFFFFF"
                         android:letterSpacing="0.08"/>
 
                     <TextView
@@ -281,7 +280,7 @@
                         android:layout_height="wrap_content"
                         android:text="---"
                         android:textSize="24sp"
-                        android:textColor="@color/text_primary"
+                        android:textColor="#FFFFFF"
                         android:textStyle="bold"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="2dp"/>
@@ -291,7 +290,7 @@
                         android:layout_height="wrap_content"
                         android:text="выстр/мин"
                         android:textSize="9sp"
-                        android:textColor="@color/text_hint"/>
+                        android:textColor="#80FFFFFF"/>
 
                 </LinearLayout>
 
@@ -308,7 +307,7 @@
                         android:layout_height="wrap_content"
                         android:text="МАССА"
                         android:textSize="9sp"
-                        android:textColor="@color/text_hint"
+                        android:textColor="#80FFFFFF"
                         android:letterSpacing="0.08"/>
 
                     <TextView
@@ -317,7 +316,7 @@
                         android:layout_height="wrap_content"
                         android:text="0.25"
                         android:textSize="24sp"
-                        android:textColor="@color/text_primary"
+                        android:textColor="#FFFFFF"
                         android:textStyle="bold"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="2dp"/>
@@ -327,14 +326,14 @@
                         android:layout_height="wrap_content"
                         android:text="грамм"
                         android:textSize="9sp"
-                        android:textColor="@color/text_hint"/>
+                        android:textColor="#80FFFFFF"/>
 
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Кнопки управления в стиле Glass -->
+    <!-- Кнопки управления -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -353,14 +352,14 @@
             android:layout_marginEnd="8dp"
             android:text="История"
             android:textSize="13sp"
-            android:textColor="@color/text_primary"
+            android:textColor="#FFFFFF"
             android:letterSpacing="0.02"
             app:icon="@drawable/ic_history"
-            app:iconTint="@color/text_primary"
-            app:strokeColor="@color/glass_white_30"
+            app:iconTint="#FFFFFF"
+            app:strokeColor="#4DFFFFFF"
             app:strokeWidth="1dp"
             app:cornerRadius="26dp"
-            app:backgroundTint="@color/glass_white_10"/>
+            app:backgroundTint="#1AFFFFFF"/>
 
         <!-- Масса -->
         <com.google.android.material.button.MaterialButton
@@ -372,14 +371,14 @@
             android:layout_marginHorizontal="8dp"
             android:text="Масса"
             android:textSize="13sp"
-            android:textColor="@color/text_primary"
+            android:textColor="#FFFFFF"
             android:letterSpacing="0.02"
             app:icon="@drawable/ic_weight"
-            app:iconTint="@color/text_primary"
-            app:strokeColor="@color/glass_white_30"
+            app:iconTint="#FFFFFF"
+            app:strokeColor="#4DFFFFFF"
             app:strokeWidth="1dp"
             app:cornerRadius="26dp"
-            app:backgroundTint="@color/glass_white_10"/>
+            app:backgroundTint="#1AFFFFFF"/>
 
         <!-- Сброс -->
         <com.google.android.material.button.MaterialButton
@@ -391,18 +390,18 @@
             android:layout_marginStart="8dp"
             android:text="Сброс"
             android:textSize="13sp"
-            android:textColor="@color/text_primary"
+            android:textColor="#FFFFFF"
             android:letterSpacing="0.02"
             app:icon="@drawable/ic_reset"
-            app:iconTint="@color/text_primary"
-            app:strokeColor="@color/glass_white_30"
+            app:iconTint="#FFFFFF"
+            app:strokeColor="#4DFFFFFF"
             app:strokeWidth="1dp"
             app:cornerRadius="26dp"
-            app:backgroundTint="@color/glass_white_10"/>
+            app:backgroundTint="#1AFFFFFF"/>
 
     </LinearLayout>
 
-    <!-- Индикатор подключения внизу -->
+    <!-- Индикатор подключения -->
     <TextView
         android:id="@+id/connectionIndicator"
         android:layout_width="wrap_content"
@@ -411,7 +410,7 @@
         android:layout_gravity="center"
         android:text="●"
         android:textSize="14sp"
-        android:textColor="@color/glass_blue"
+        android:textColor="#FF4A90E2"
         android:background="@drawable/circle_background_indicator"
         android:padding="8dp"/>
 
