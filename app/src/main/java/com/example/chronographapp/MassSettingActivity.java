@@ -32,6 +32,7 @@ public class MassSettingActivity extends AppCompatActivity {
         setupInitialValues();
         setupDigitButtons();
         setupDigitClickListeners();
+        setupActionButtons(); // Добавил эту строку!
         setupBackPressedHandler();
     }
 
@@ -134,6 +135,29 @@ public class MassSettingActivity extends AppCompatActivity {
         }
     }
 
+    // ДОБАВИЛ ЭТОТ МЕТОД ДЛЯ ПРИВЯЗКИ КНОПОК
+    private void setupActionButtons() {
+        MaterialButton resetButton = findViewById(R.id.resetButton);
+        if (resetButton != null) {
+            resetButton.setOnClickListener(v -> onResetClick());
+        }
+
+        MaterialButton applyButton = findViewById(R.id.applyButton);
+        if (applyButton != null) {
+            applyButton.setOnClickListener(v -> onApplyClick());
+        }
+
+        MaterialButton cancelButton = findViewById(R.id.cancelButton);
+        if (cancelButton != null) {
+            cancelButton.setOnClickListener(v -> onCancelClick());
+        }
+
+        MaterialButton saveButton = findViewById(R.id.saveButton);
+        if (saveButton != null) {
+            saveButton.setOnClickListener(v -> onSaveClick());
+        }
+    }
+
     private void increaseDigit(int digitIndex) {
         digits[digitIndex]++;
 
@@ -208,19 +232,19 @@ public class MassSettingActivity extends AppCompatActivity {
         }
     }
 
-    public void onCancelClick(View view) {
+    public void onCancelClick() {
         setResult(RESULT_CANCELED);
         finish();
     }
 
-    public void onResetClick(View view) {
+    public void onResetClick() {
         parseMassToDigits(0.25f);
         updateDigitDisplay();
         setSelectedDigit(0);
         Toast.makeText(this, "Масса сброшена к 0.25г", Toast.LENGTH_SHORT).show();
     }
 
-    public void onApplyClick(View view) {
+    public void onApplyClick() {
         float newMass = calculateMassFromDigits();
 
         if (newMass < 0.01f || newMass > 99.99f) {
@@ -236,7 +260,7 @@ public class MassSettingActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    public void onSaveClick(View view) {
+    public void onSaveClick() {
         float newMass = calculateMassFromDigits();
 
         if (newMass < 0.01f) {
@@ -292,7 +316,7 @@ public class MassSettingActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Несохраненные изменения")
                 .setMessage("У вас есть несохраненные изменения массы. Сохранить?")
-                .setPositiveButton("Сохранить", (dialog, which) -> onSaveClick(null))
+                .setPositiveButton("Сохранить", (dialog, which) -> onSaveClick())
                 .setNegativeButton("Не сохранять", (dialog, which) -> {
                     setResult(RESULT_CANCELED);
                     finish();

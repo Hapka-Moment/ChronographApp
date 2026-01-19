@@ -7,21 +7,17 @@
     android:background="@drawable/background_gradient"
     android:fitsSystemWindows="true">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/glass_toolbar_background"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="12dp">
 
+        <!-- Увеличил тулбар -->
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="56dp"
             android:background="@drawable/glass_toolbar_background"
             app:title="Хронограф"
             app:titleTextColor="@color/text_primary"
@@ -29,6 +25,7 @@
             app:elevation="0dp"
             style="@style/Widget.MaterialComponents.Toolbar"/>
 
+        <!-- Карточка подключения -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/connectionCard"
             android:layout_width="match_parent"
@@ -105,6 +102,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Карточка данных -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -328,6 +326,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Кнопки -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -344,9 +343,13 @@
                 android:layout_weight="1"
                 android:layout_marginHorizontal="4dp"
                 android:text="История"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textColor="#FFFFFF"
                 android:letterSpacing="0.02"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 app:icon="@drawable/ic_history"
                 app:iconSize="16dp"
                 app:iconPadding="2dp"
@@ -364,9 +367,13 @@
                 android:layout_weight="1"
                 android:layout_marginHorizontal="4dp"
                 android:text="Масса"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textColor="#FFFFFF"
                 android:letterSpacing="0.02"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 app:icon="@drawable/ic_weight"
                 app:iconSize="16dp"
                 app:iconPadding="2dp"
@@ -384,9 +391,13 @@
                 android:layout_weight="1"
                 android:layout_marginHorizontal="4dp"
                 android:text="Сброс"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textColor="#FFFFFF"
                 android:letterSpacing="0.02"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 app:icon="@drawable/ic_reset"
                 app:iconSize="16dp"
                 app:iconPadding="2dp"

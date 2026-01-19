@@ -7,24 +7,17 @@
     android:background="@drawable/background_gradient"
     android:fitsSystemWindows="true">
 
-    <!-- Status bar spacing -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/glass_toolbar_background"/>
-
-    <!-- Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Toolbar -->
+        <!-- Увеличенный тулбар -->
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="56dp"
             android:background="@drawable/glass_toolbar_background"
             app:title="Настройка массы"
             app:titleTextColor="#FFFFFF"
@@ -32,7 +25,7 @@
             app:elevation="0dp"
             style="@style/Widget.MaterialComponents.Toolbar"/>
 
-        <!-- Карточка текущей массы -->
+        <!-- Остальной контент без изменений -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
