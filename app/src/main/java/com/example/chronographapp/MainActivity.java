@@ -161,9 +161,6 @@ public class MainActivity extends AppCompatActivity {
                 BluetoothDevice device = bluetoothAdapter.getRemoteDevice(HC05_MAC_ADDRESS);
                 bluetoothSocket = device.createRfcommSocketToServiceRecord(MY_UUID);
 
-                // Отменяем discovery для ускорения подключения
-                bluetoothAdapter.cancelDiscovery();
-
                 // Подключаемся
                 bluetoothSocket.connect();
 
