@@ -7,20 +7,17 @@
     android:background="@drawable/background_gradient"
     android:fitsSystemWindows="true">
 
-    <!-- Status bar spacing -->
     <View
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/glass_toolbar_background"/>
 
-    <!-- Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Toolbar -->
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -32,7 +29,6 @@
             app:elevation="0dp"
             style="@style/Widget.MaterialComponents.Toolbar"/>
 
-        <!-- Карточка подключения -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/connectionCard"
             android:layout_width="match_parent"
@@ -109,7 +105,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Основные показатели -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,7 +137,6 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="24dp">
 
-                    <!-- Скорость -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -185,7 +179,6 @@
                         android:layout_marginHorizontal="12dp"
                         android:background="#33FFFFFF"/>
 
-                    <!-- Энергия -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -223,7 +216,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Статистика -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -336,7 +328,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Кнопки управления -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

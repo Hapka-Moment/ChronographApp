@@ -14,7 +14,7 @@ import com.google.android.material.button.MaterialButton;
 
 public class MassSettingActivity extends AppCompatActivity {
 
-    private int[] digits = new int[4]; // Теперь 4 цифры вместо 3
+    private int[] digits = new int[4];
     private TextView[] digitViews = new TextView[4];
     private TextView finalMassText;
     private TextView currentMassText;
@@ -31,7 +31,7 @@ public class MassSettingActivity extends AppCompatActivity {
         initViews();
         setupInitialValues();
         setupDigitButtons();
-        setupNavigationButtons();
+        setupDigitClickListeners();
         setupBackPressedHandler();
     }
 
@@ -68,32 +68,24 @@ public class MassSettingActivity extends AppCompatActivity {
     }
 
     private void parseMassToDigits(float mass) {
-        // Преобразуем массу в целое число (умножаем на 100 для 2 знаков после запятой)
-        int massInt = Math.round(mass * 100); // Используем round для правильного округления
+        int massInt = Math.round(mass * 100);
+        digits[0] = (massInt / 1000) % 10;
+        digits[1] = (massInt / 100) % 10;
+        digits[2] = (massInt / 10) % 10;
+        digits[3] = massInt % 10;
 
-        // Для XX.XX формата:
-        digits[0] = (massInt / 1000) % 10; // Десятки граммов (0-9)
-        digits[1] = (massInt / 100) % 10;  // Единицы граммов (0-9)
-        digits[2] = (massInt / 10) % 10;   // Десятые доли (0-9)
-        digits[3] = massInt % 10;          // Сотые доли (0-9)
-
-        // Если масса меньше 10 граммов, первая цифра должна быть 0
         if (mass < 10.0f) {
             digits[0] = 0;
         }
-
-        // Если масса меньше 1 грамма, первые две цифры должны быть 0
         if (mass < 1.0f) {
             digits[0] = 0;
             digits[1] = 0;
         }
-
-        // Проверяем минимальное значение (0.01)
         if (mass < 0.01f) {
             digits[0] = 0;
             digits[1] = 0;
             digits[2] = 0;
-            digits[3] = 1; // Минимальное значение 0.01
+            digits[3] = 1;
         }
     }
 
@@ -107,7 +99,6 @@ public class MassSettingActivity extends AppCompatActivity {
     }
 
     private float calculateMassFromDigits() {
-        // Формат XX.XX грамма
         return digits[0] * 10 + digits[1] + digits[2] * 0.1f + digits[3] * 0.01f;
     }
 
@@ -136,102 +127,65 @@ public class MassSettingActivity extends AppCompatActivity {
         }
     }
 
-    private void increaseDigit(int digitIndex) {
-        digits[digitIndex]++;
-
-        // Обработка переполнения
-        if (digits[digitIndex] > 9) {
-            digits[digitIndex] = 0;
-            // Перенос на старший разряд
-            if (digitIndex > 0) {
-                increaseDigit(digitIndex - 1);
-            }
-        }
-
-        // Проверка минимального значения
-        float newMass = calculateMassFromDigits();
-        if (newMass < 0.01f) {
-            digits[0] = 0;
-            digits[1] = 0;
-            digits[2] = 0;
-            digits[3] = 1; // Минимальное значение 0.01
-        }
-
-        // Проверка максимального значения (99.99)
-        if (newMass > 99.99f) {
-            digits[0] = 9;
-            digits[1] = 9;
-            digits[2] = 9;
-            digits[3] = 9; // Максимальное значение 99.99
-        }
-    }
-
-    private void decreaseDigit(int digitIndex) {
-        digits[digitIndex]--;
-
-        // Обработка ухода в минус
-        if (digits[digitIndex] < 0) {
-            digits[digitIndex] = 9;
-            // Заем у старшего разряда
-            if (digitIndex > 0) {
-                decreaseDigit(digitIndex - 1);
-            }
-        }
-
-        // Проверка минимального значения
-        float newMass = calculateMassFromDigits();
-        if (newMass < 0.01f) {
-            digits[0] = 0;
-            digits[1] = 0;
-            digits[2] = 0;
-            digits[3] = 1; // Минимальное значение 0.01
-        }
-    }
-
-    private void setupNavigationButtons() {
-        MaterialButton prevButton = findViewById(R.id.prevDigitButton);
-        if (prevButton != null) {
-            prevButton.setOnClickListener(v -> navigateToPreviousDigit());
-        }
-
-        MaterialButton nextButton = findViewById(R.id.nextDigitButton);
-        if (nextButton != null) {
-            nextButton.setOnClickListener(v -> navigateToNextDigit());
-        }
-
+    private void setupDigitClickListeners() {
         for (int i = 0; i < digitViews.length; i++) {
             final int digitIndex = i;
             digitViews[i].setOnClickListener(v -> setSelectedDigit(digitIndex));
         }
     }
 
-    private void navigateToPreviousDigit() {
-        if (selectedDigit > 0) {
-            setSelectedDigit(selectedDigit - 1);
-        } else {
-            setSelectedDigit(digits.length - 1);
+    private void increaseDigit(int digitIndex) {
+        digits[digitIndex]++;
+
+        if (digits[digitIndex] > 9) {
+            digits[digitIndex] = 0;
+            if (digitIndex > 0) {
+                increaseDigit(digitIndex - 1);
+            }
+        }
+
+        float newMass = calculateMassFromDigits();
+        if (newMass < 0.01f) {
+            digits[0] = 0;
+            digits[1] = 0;
+            digits[2] = 0;
+            digits[3] = 1;
+        }
+        if (newMass > 99.99f) {
+            digits[0] = 9;
+            digits[1] = 9;
+            digits[2] = 9;
+            digits[3] = 9;
         }
     }
 
-    private void navigateToNextDigit() {
-        if (selectedDigit < digits.length - 1) {
-            setSelectedDigit(selectedDigit + 1);
-        } else {
-            setSelectedDigit(0);
+    private void decreaseDigit(int digitIndex) {
+        digits[digitIndex]--;
+
+        if (digits[digitIndex] < 0) {
+            digits[digitIndex] = 9;
+            if (digitIndex > 0) {
+                decreaseDigit(digitIndex - 1);
+            }
+        }
+
+        float newMass = calculateMassFromDigits();
+        if (newMass < 0.01f) {
+            digits[0] = 0;
+            digits[1] = 0;
+            digits[2] = 0;
+            digits[3] = 1;
         }
     }
 
     private void setSelectedDigit(int digitIndex) {
-        // Сброс фона у всех цифр
         for (TextView digitView : digitViews) {
             digitView.setBackgroundResource(R.drawable.circle_background_blue);
         }
 
-        // Подсветка выбранной цифры
         digitViews[digitIndex].setBackgroundResource(R.drawable.circle_background_indicator);
         selectedDigit = digitIndex;
 
-        // Показать подсказку
         showDigitHint(digitIndex);
     }
 
