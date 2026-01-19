@@ -11,7 +11,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MassSettingActivity extends AppCompatActivity {
 
@@ -33,7 +32,6 @@ public class MassSettingActivity extends AppCompatActivity {
         setupInitialValues();
         setupDigitButtons();
         setupNavigationButtons();
-        setupFloatingActionButton();
         setupBackPressedHandler();
     }
 
@@ -60,12 +58,6 @@ public class MassSettingActivity extends AppCompatActivity {
         digitViews[3] = findViewById(R.id.massDigit4);
         finalMassText = findViewById(R.id.finalMassText);
         currentMassText = findViewById(R.id.currentMassText);
-
-        for (int i = 0; i < digitViews.length; i++) {
-            if (digitViews[i] == null) {
-                throw new IllegalStateException("Digit view " + i + " not found");
-            }
-        }
     }
 
     private void setupInitialValues() {
@@ -221,49 +213,6 @@ public class MassSettingActivity extends AppCompatActivity {
         }
     }
 
-    private void setupFloatingActionButton() {
-        FloatingActionButton fab = findViewById(R.id.fab);
-        if (fab != null) {
-            fab.setOnClickListener(view -> saveMassAndExit());
-        }
-    }
-
-    private void saveMassAndExit() {
-        float newMass = calculateMassFromDigits();
-
-        if (newMass < 0.01f) {
-            Toast.makeText(this, "Масса должна быть не менее 0.01г", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if (newMass > 99.99f) {
-            Toast.makeText(this, "Масса должна быть не более 99.99г", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("new_mass", newMass);
-        setResult(RESULT_OK, resultIntent);
-
-        // Отправляем команду на Arduino
-        sendMassToArduino(newMass);
-
-        Toast.makeText(this,
-                String.format("Масса установлена: %.2fг", newMass),
-                Toast.LENGTH_SHORT).show();
-
-        finish();
-    }
-
-    private void sendMassToArduino(float mass) {
-        // Получаем доступ к MainActivity для отправки команды
-        if (getParent() instanceof MainActivity) {
-            MainActivity mainActivity = (MainActivity) getParent();
-            String massCommand = String.format("MASS:%.2f", mass);
-            mainActivity.sendCommandToArduino(massCommand);
-        }
-    }
-
     private void updateCurrentMassDisplay() {
         if (currentMassText != null) {
             currentMassText.setText(String.format("Текущая масса: %.2f грамм", currentMass));
@@ -293,16 +242,33 @@ public class MassSettingActivity extends AppCompatActivity {
         currentMass = newMass;
         updateCurrentMassDisplay();
 
-        // Отправляем команду на Arduino
-        sendMassToArduino(newMass);
-
         Toast.makeText(this,
                 String.format("Масса применена: %.2fг", newMass),
                 Toast.LENGTH_SHORT).show();
     }
 
     public void onSaveClick(View view) {
-        saveMassAndExit();
+        float newMass = calculateMassFromDigits();
+
+        if (newMass < 0.01f) {
+            Toast.makeText(this, "Масса должна быть не менее 0.01г", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (newMass > 99.99f) {
+            Toast.makeText(this, "Масса должна быть не более 99.99г", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("new_mass", newMass);
+        setResult(RESULT_OK, resultIntent);
+
+        Toast.makeText(this,
+                String.format("Масса установлена: %.2fг", newMass),
+                Toast.LENGTH_SHORT).show();
+
+        finish();
     }
 
     @Override
@@ -338,7 +304,7 @@ public class MassSettingActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Несохраненные изменения")
                 .setMessage("У вас есть несохраненные изменения массы. Сохранить?")
-                .setPositiveButton("Сохранить", (dialog, which) -> saveMassAndExit())
+                .setPositiveButton("Сохранить", (dialog, which) -> onSaveClick(null))
                 .setNegativeButton("Не сохранять", (dialog, which) -> {
                     setResult(RESULT_CANCELED);
                     finish();

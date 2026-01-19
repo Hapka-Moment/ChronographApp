@@ -9,11 +9,15 @@
     android:background="#f8f9fa"
     tools:context=".MainActivity">
 
-    <!-- Карточка состояния подключения -->
+    <!-- Карточка состояния подключения (кликабельная) -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/connectionCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
         app:cardBackgroundColor="#ffffff">
@@ -49,6 +53,7 @@
                     android:textColor="#333333" />
 
                 <TextView
+                    android:id="@+id/deviceNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HC-05 хронограф"
@@ -58,18 +63,15 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/connectButton"
+            <!-- Подсказка действия -->
+            <TextView
+                android:id="@+id/connectionHintText"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:minWidth="120dp"
-                android:text="ПОДКЛЮЧИТЬ"
-                android:textAllCaps="false"
-                android:backgroundTint="#2196F3"
-                android:textColor="#ffffff"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                style="@style/Widget.AppCompat.Button.Borderless" />
+                android:layout_height="wrap_content"
+                android:text="Нажмите для подключения"
+                android:textSize="12sp"
+                android:textColor="#2196F3"
+                android:padding="8dp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -206,8 +208,7 @@
                     android:gravity="center"
                     android:padding="12dp"
                     android:background="#f5f5f5"
-                    android:layout_marginEnd="6dp"
-                    android:backgroundTint="#f5f5f5">
+                    android:layout_marginEnd="6dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -247,8 +248,7 @@
                     android:padding="12dp"
                     android:background="#f5f5f5"
                     android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
-                    android:backgroundTint="#f5f5f5">
+                    android:layout_marginEnd="6dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -287,8 +287,7 @@
                     android:gravity="center"
                     android:padding="12dp"
                     android:background="#f5f5f5"
-                    android:layout_marginStart="6dp"
-                    android:backgroundTint="#f5f5f5">
+                    android:layout_marginStart="6dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -321,7 +320,7 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Карточка управления - ИСПРАВЛЕННЫЕ КНОПКИ -->
+    <!-- Карточка управления -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -346,14 +345,14 @@
                 android:letterSpacing="0.05"
                 android:layout_marginBottom="12dp" />
 
-            <!-- Кнопки управления в одну строку БЕЗ ПЕРЕНОСА -->
+            <!-- Кнопки управления в одну строку -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <!-- История - КОРОТКИЙ ТЕКСТ -->
+                <!-- История -->
                 <Button
                     android:id="@+id/historyButton"
                     android:layout_width="0dp"
@@ -372,7 +371,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
-                <!-- Масса - КОРОТКИЙ ТЕКСТ -->
+                <!-- Масса -->
                 <Button
                     android:id="@+id/massButton"
                     android:layout_width="0dp"
@@ -392,7 +391,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
-                <!-- Сброс - КОРОТКИЙ ТЕКСТ -->
+                <!-- Сброс -->
                 <Button
                     android:id="@+id/resetButton"
                     android:layout_width="0dp"

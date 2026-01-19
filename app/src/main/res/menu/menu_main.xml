@@ -2,27 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- Оставляем только историю и о программе -->
     <item
         android:id="@+id/action_history"
-        android:icon="@android:drawable/ic_menu_agenda"
         android:title="История"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_mass"
-        android:icon="@android:drawable/ic_menu_edit"
-        android:title="Масса"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_connect"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:title="Подключить"
-        app:showAsAction="ifRoom" />
+        android:icon="@android:drawable/ic_menu_agenda"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_about"
         android:title="О программе"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 
 </menu>

@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothSocket;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -31,9 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     // UI элементы
     private TextView velocityText, energyText, rpmText, shotCountText, massText;
-    private TextView connectionStatusText, connectionStatusToolbar;
+    private TextView connectionStatusText, connectionStatusToolbar, deviceNameText, connectionHintText;
     private ImageView connectionStatusIcon;
-    private Button connectButton, historyButton, massButton, resetButton;
+    private Button historyButton, massButton, resetButton;
+    private CardView connectionCard;
 
     // Bluetooth
     private BluetoothAdapter bluetoothAdapter;
@@ -95,12 +96,13 @@ public class MainActivity extends AppCompatActivity {
         massText = findViewById(R.id.massText);
         connectionStatusText = findViewById(R.id.connectionStatusText);
         connectionStatusIcon = findViewById(R.id.connectionStatusIcon);
+        deviceNameText = findViewById(R.id.deviceNameText);
+        connectionHintText = findViewById(R.id.connectionHintText);
+        connectionCard = findViewById(R.id.connectionCard);
 
-        connectButton = findViewById(R.id.connectButton);
         historyButton = findViewById(R.id.historyButton);
         massButton = findViewById(R.id.massButton);
         resetButton = findViewById(R.id.resetButton);
-
     }
 
     private void setupBluetooth() {
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         if (bluetoothAdapter == null) {
             // Устройство не поддерживает Bluetooth
             connectionStatusText.setText("Bluetooth не поддерживается");
-            connectButton.setEnabled(false);
+            connectionCard.setEnabled(false);
             updateConnectionStatus(false);
         } else if (!bluetoothAdapter.isEnabled()) {
             // Bluetooth выключен
@@ -117,14 +119,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Bluetooth доступен
             connectionStatusText.setText("Не подключено");
-            connectButton.setText("ПОДКЛЮЧИТЬ");
+            connectionHintText.setText("Нажмите для подключения");
             updateConnectionStatus(false);
         }
     }
 
     private void setupClickListeners() {
-        // Кнопка подключения Bluetooth
-        connectButton.setOnClickListener(v -> {
+        // Клик на карточку подключения
+        connectionCard.setOnClickListener(v -> {
             if (connectedThread != null && bluetoothSocket != null && bluetoothSocket.isConnected()) {
                 disconnectFromBluetoothDevice();
             } else {
@@ -151,8 +153,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Попытка подключиться к HC-05 по MAC-адресу
         connectionStatusText.setText("Подключение...");
-        connectionStatusIcon.setColorFilter(Color.parseColor("#FF9800")); // Оранжевый - процесс подключения
-        connectButton.setEnabled(false);
+        connectionHintText.setText("Подключение...");
+        connectionCard.setEnabled(false);
 
         new Thread(() -> {
             try {
@@ -168,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
                 // Успешное подключение
                 mainHandler.post(() -> {
                     connectionStatusText.setText("Подключено к HC-05");
-                    connectButton.setText("ОТКЛЮЧИТЬ");
-                    connectButton.setEnabled(true);
+                    connectionHintText.setText("Нажмите для отключения");
+                    connectionCard.setEnabled(true);
                     updateConnectionStatus(true);
                     Toast.makeText(MainActivity.this, "Подключено к HC-05", Toast.LENGTH_SHORT).show();
                 });
@@ -181,8 +183,8 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 mainHandler.post(() -> {
                     connectionStatusText.setText("Ошибка подключения");
-                    connectButton.setText("ПОДКЛЮЧИТЬ");
-                    connectButton.setEnabled(true);
+                    connectionHintText.setText("Нажмите для подключения");
+                    connectionCard.setEnabled(true);
                     updateConnectionStatus(false);
                     Toast.makeText(MainActivity.this,
                             "Не удалось подключиться: " + e.getMessage(),
@@ -192,8 +194,8 @@ public class MainActivity extends AppCompatActivity {
             } catch (IllegalArgumentException e) {
                 mainHandler.post(() -> {
                     connectionStatusText.setText("Неверный MAC-адрес");
-                    connectButton.setText("ПОДКЛЮЧИТЬ");
-                    connectButton.setEnabled(true);
+                    connectionHintText.setText("Нажмите для подключения");
+                    connectionCard.setEnabled(true);
                     updateConnectionStatus(false);
                     Toast.makeText(MainActivity.this,
                             "Проверьте MAC-адрес HC-05 в настройках",
@@ -221,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         connectionStatusText.setText("Не подключено");
-        connectButton.setText("ПОДКЛЮЧИТЬ");
+        connectionHintText.setText("Нажмите для подключения");
         updateConnectionStatus(false);
         Toast.makeText(this, "Отключено от HC-05", Toast.LENGTH_SHORT).show();
     }
@@ -360,18 +362,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Обновляем главный экран
         if (connected) {
-
             connectionStatusText.setText("Подключено к HC-05");
             // Установите зеленую иконку подключения
             connectionStatusIcon.setColorFilter(Color.parseColor("#4CAF50"));
-            connectButton.setText("ОТКЛЮЧИТЬ");
-            connectButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#f44336")));
+            connectionHintText.setText("Нажмите для отключения");
+            connectionStatusIcon.setImageResource(R.drawable.ic_bluetooth_connected);
         } else {
             connectionStatusText.setText("Не подключено");
             // Установите серую иконку отключения
             connectionStatusIcon.setColorFilter(Color.parseColor("#757575"));
-            connectButton.setText("ПОДКЛЮЧИТЬ");
-            connectButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2196F3")));
+            connectionHintText.setText("Нажмите для подключения");
+            connectionStatusIcon.setImageResource(R.drawable.ic_bluetooth_disconnected);
         }
     }
 
@@ -423,16 +424,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_history) {
             openHistoryActivity();
-            return true;
-        } else if (id == R.id.action_mass) {
-            openMassSettingsActivity();
-            return true;
-        } else if (id == R.id.action_connect) {
-            if (connectedThread != null && bluetoothSocket != null && bluetoothSocket.isConnected()) {
-                disconnectFromBluetoothDevice();
-            } else {
-                connectToBluetoothDevice();
-            }
             return true;
         } else if (id == R.id.action_about) {
             showAboutDialog();
@@ -529,7 +520,7 @@ public class MainActivity extends AppCompatActivity {
                     // Уведомляем UI об отключении
                     mainHandler.post(() -> {
                         connectionStatusText.setText("Соединение разорвано");
-                        connectButton.setText("ПОДКЛЮЧИТЬ");
+                        connectionHintText.setText("Нажмите для подключения");
                         updateConnectionStatus(false);
                         Toast.makeText(MainActivity.this,
                                 "Соединение с HC-05 разорвано",

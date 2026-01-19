@@ -81,11 +81,7 @@ public class HistoryActivity extends AppCompatActivity {
 
             if (velocityArray != null && energyArray != null && velocityArray.length > 0) {
                 createShotListFromArrays(velocityArray, energyArray);
-            } else {
-                createTestData();
             }
-        } else {
-            createTestData();
         }
     }
 
@@ -101,21 +97,6 @@ public class HistoryActivity extends AppCompatActivity {
                     energyArray[i],
                     timestamp
             );
-            shotList.add(shot);
-        }
-        totalShots = shotList.size();
-    }
-
-    private void createTestData() {
-        shotList.clear();
-        for (int i = 0; i < 8; i++) {
-            float velocity = 150 + (float) (Math.random() * 50);
-            float energy = (velocity * velocity * currentMass) / 2000;
-
-            String timestamp = new SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-                    .format(new Date(System.currentTimeMillis() - (8 - i) * 3000));
-
-            ShotData shot = new ShotData(i + 1, velocity, energy, timestamp);
             shotList.add(shot);
         }
         totalShots = shotList.size();
@@ -137,15 +118,6 @@ public class HistoryActivity extends AppCompatActivity {
                 showShotActionsDialog(position, shot);
             }
         });
-
-        // Простой разделитель без кастомного класса
-        RecyclerView.ItemDecoration itemDecoration = new RecyclerView.ItemDecoration() {
-            // Базовая реализация разделителя
-        };
-        recyclerView.addItemDecoration(itemDecoration);
-
-        // Или просто уберите эту строку, если разделитель не критичен
-        // recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
     }
 
     private void showShotDetailsDialog(ShotData shot) {
