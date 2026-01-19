@@ -5,442 +5,467 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background_gradient"
-    android:padding="16dp">
+    android:fitsSystemWindows="true">
 
-    <!-- Toolbar -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <!-- Status bar spacing -->
+    <View
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/glass_toolbar_background"
-        app:title="Настройка массы"
-        app:titleTextColor="#FFFFFF"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:elevation="0dp"
-        style="@style/Widget.MaterialComponents.Toolbar"/>
+        android:background="@drawable/glass_toolbar_background"/>
 
-    <!-- Карточка текущей массы -->
-    <com.google.android.material.card.MaterialCardView
+    <!-- Content -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
-        app:cardBackgroundColor="#33FFFFFF"
-        app:cardCornerRadius="28dp"
-        app:strokeColor="#4DFFFFFF"
-        app:strokeWidth="1dp"
-        app:cardElevation="0dp"
-        style="@style/Widget.MaterialComponents.CardView">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <LinearLayout
+        <!-- Toolbar -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/glass_toolbar_background"
+            app:title="Настройка массы"
+            app:titleTextColor="#FFFFFF"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:elevation="0dp"
+            style="@style/Widget.MaterialComponents.Toolbar"/>
+
+        <!-- Карточка текущей массы -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:gravity="center">
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="#33FFFFFF"
+            app:cardCornerRadius="24dp"
+            app:strokeColor="#4DFFFFFF"
+            app:strokeWidth="1dp"
+            app:cardElevation="0dp"
+            style="@style/Widget.MaterialComponents.CardView">
 
-            <TextView
-                android:id="@+id/currentMassText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Текущая масса: 0.25 грамм"
-                android:textSize="16sp"
-                android:textColor="#FFFFFF"
-                android:gravity="center"/>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Карточка установки массы -->
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:cardBackgroundColor="#33FFFFFF"
-        app:cardCornerRadius="28dp"
-        app:strokeColor="#4DFFFFFF"
-        app:strokeWidth="1dp"
-        app:cardElevation="0dp"
-        style="@style/Widget.MaterialComponents.CardView">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Установка массы снаряда"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="24dp"
-                android:gravity="center"/>
-
-            <!-- Блок цифр -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/glass_stats_background"
-                android:padding="32dp"
-                android:layout_marginBottom="32dp">
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
 
-                <!-- Десятки -->
-                <LinearLayout
+                <TextView
+                    android:id="@+id/currentMassText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:text="Текущая масса: 0.25 грамм"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/massDigit1Up"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="12dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="↑"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        app:strokeColor="#4DFFFFFF"
-                        app:strokeWidth="1dp"
-                        app:cornerRadius="24dp"
-                        app:backgroundTint="#1AFFFFFF"/>
+        <!-- Карточка установки массы -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="#33FFFFFF"
+            app:cardCornerRadius="24dp"
+            app:strokeColor="#4DFFFFFF"
+            app:strokeWidth="1dp"
+            app:cardElevation="0dp"
+            style="@style/Widget.MaterialComponents.CardView">
 
-                    <TextView
-                        android:id="@+id/massDigit1"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:background="@drawable/circle_background_blue"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/massDigit1Down"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="12dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="↓"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        app:strokeColor="#4DFFFFFF"
-                        app:strokeWidth="1dp"
-                        app:cornerRadius="24dp"
-                        app:backgroundTint="#1AFFFFFF"/>
-                </LinearLayout>
-
-                <!-- Единицы -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_marginStart="24dp">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/massDigit2Up"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="12dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="↑"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        app:strokeColor="#4DFFFFFF"
-                        app:strokeWidth="1dp"
-                        app:cornerRadius="24dp"
-                        app:backgroundTint="#1AFFFFFF"/>
-
-                    <TextView
-                        android:id="@+id/massDigit2"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:background="@drawable/circle_background_blue"/>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/massDigit2Down"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="12dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="↓"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        app:strokeColor="#4DFFFFFF"
-                        app:strokeWidth="1dp"
-                        app:cornerRadius="24dp"
-                        app:backgroundTint="#1AFFFFFF"/>
-                </LinearLayout>
-
-                <!-- Точка -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="."
-                    android:textSize="32sp"
+                    android:text="Установка массы снаряда"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"/>
 
-                <!-- Десятые -->
+                <!-- Блок цифр -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_marginStart="24dp">
+                    android:orientation="horizontal"
+                    android:background="@drawable/glass_stats_background"
+                    android:padding="12dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/massDigit3Up"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="12dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="↑"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        app:strokeColor="#4DFFFFFF"
-                        app:strokeWidth="1dp"
-                        app:cornerRadius="24dp"
-                        app:backgroundTint="#1AFFFFFF"/>
-
-                    <TextView
-                        android:id="@+id/massDigit3"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
+                    <!-- Десятки граммов -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:text="0"
-                        android:textSize="32sp"
+                        android:padding="4dp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/massDigit1Up"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginBottom="6dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="↑"
+                            android:textSize="12sp"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#4DFFFFFF"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="18dp"
+                            app:backgroundTint="#1AFFFFFF"/>
+
+                        <TextView
+                            android:id="@+id/massDigit1"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:background="@drawable/circle_background_blue"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/massDigit1Down"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="6dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="↓"
+                            android:textSize="12sp"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#4DFFFFFF"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="18dp"
+                            app:backgroundTint="#1AFFFFFF"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Десятки"
+                            android:textSize="8sp"
+                            android:textColor="#80FFFFFF"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+                    <!-- Единицы граммов -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="4dp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/massDigit2Up"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginBottom="6dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="↑"
+                            android:textSize="12sp"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#4DFFFFFF"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="18dp"
+                            app:backgroundTint="#1AFFFFFF"/>
+
+                        <TextView
+                            android:id="@+id/massDigit2"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:background="@drawable/circle_background_blue"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/massDigit2Down"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="6dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="↓"
+                            android:textSize="12sp"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#4DFFFFFF"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="18dp"
+                            app:backgroundTint="#1AFFFFFF"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Единицы"
+                            android:textSize="8sp"
+                            android:textColor="#80FFFFFF"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+                    <!-- Точка -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="."
+                        android:textSize="26sp"
                         android:textStyle="bold"
                         android:textColor="#FFFFFF"
-                        android:background="@drawable/circle_background_blue"/>
+                        android:layout_marginHorizontal="2dp"
+                        android:layout_marginTop="26dp"/>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/massDigit3Down"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="12dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="↓"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        app:strokeColor="#4DFFFFFF"
-                        app:strokeWidth="1dp"
-                        app:cornerRadius="24dp"
-                        app:backgroundTint="#1AFFFFFF"/>
+                    <!-- Десятые доли -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="4dp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/massDigit3Up"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginBottom="6dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="↑"
+                            android:textSize="12sp"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#4DFFFFFF"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="18dp"
+                            app:backgroundTint="#1AFFFFFF"/>
+
+                        <TextView
+                            android:id="@+id/massDigit3"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:background="@drawable/circle_background_blue"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/massDigit3Down"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="6dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="↓"
+                            android:textSize="12sp"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#4DFFFFFF"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="18dp"
+                            app:backgroundTint="#1AFFFFFF"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Десятые"
+                            android:textSize="8sp"
+                            android:textColor="#80FFFFFF"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+                    <!-- Сотые доли -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="4dp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/massDigit4Up"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginBottom="6dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="↑"
+                            android:textSize="12sp"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#4DFFFFFF"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="18dp"
+                            app:backgroundTint="#1AFFFFFF"/>
+
+                        <TextView
+                            android:id="@+id/massDigit4"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:background="@drawable/circle_background_blue"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/massDigit4Down"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="6dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="↓"
+                            android:textSize="12sp"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#4DFFFFFF"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="18dp"
+                            app:backgroundTint="#1AFFFFFF"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Сотые"
+                            android:textSize="8sp"
+                            android:textColor="#80FFFFFF"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
                 </LinearLayout>
 
-                <!-- Сотые -->
-                <LinearLayout
+                <!-- Итоговая масса -->
+                <TextView
+                    android:id="@+id/finalMassText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_marginStart="24dp">
+                    android:text="Масса: 0.00 грамм"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/glass_stats_background"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"/>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/massDigit4Up"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="12dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="↑"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        app:strokeColor="#4DFFFFFF"
-                        app:strokeWidth="1dp"
-                        app:cornerRadius="24dp"
-                        app:backgroundTint="#1AFFFFFF"/>
-
-                    <TextView
-                        android:id="@+id/massDigit4"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:background="@drawable/circle_background_blue"/>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/massDigit4Down"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="12dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="↓"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        app:strokeColor="#4DFFFFFF"
-                        app:strokeWidth="1dp"
-                        app:cornerRadius="24dp"
-                        app:backgroundTint="#1AFFFFFF"/>
-                </LinearLayout>
+                <!-- Подсказка формата -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Формат: XX.XX грамм (от 0.01 до 99.99)"
+                    android:textSize="10sp"
+                    android:textColor="#80FFFFFF"
+                    android:layout_marginBottom="16dp"/>
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <!-- Навигация по цифрам -->
+        <!-- Кнопки управления -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="4dp">
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="32dp">
+                android:layout_marginBottom="8dp">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/prevDigitButton"
+                    android:id="@+id/resetButton"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="44dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="← Пред. цифра"
-                    android:textSize="12sp"
-                    android:textColor="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:text="Сброс"
+                    android:textSize="11sp"
+                    android:textColor="#FFFD7B54"
+                    android:textAllCaps="false"
                     app:strokeColor="#4DFFFFFF"
                     app:strokeWidth="1dp"
                     app:cornerRadius="22dp"
                     app:backgroundTint="#1AFFFFFF"/>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/nextDigitButton"
+                    android:id="@+id/applyButton"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="44dp"
-                    android:text="След. цифра →"
-                    android:textSize="12sp"
-                    android:textColor="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:text="Применить"
+                    android:textSize="11sp"
+                    android:textColor="#FF00D4AA"
+                    android:textAllCaps="false"
                     app:strokeColor="#4DFFFFFF"
                     app:strokeWidth="1dp"
                     app:cornerRadius="22dp"
                     app:backgroundTint="#1AFFFFFF"/>
             </LinearLayout>
 
-            <!-- Итоговая масса -->
-            <TextView
-                android:id="@+id/finalMassText"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Масса: 0.00 грамм"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="32dp"
-                android:background="@drawable/glass_stats_background"
-                android:paddingHorizontal="32dp"
-                android:paddingVertical="16dp"/>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                android:orientation="horizontal">
 
-    <!-- Кнопки управления -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="8dp">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancelButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:text="Отмена"
+                    android:textSize="11sp"
+                    android:textColor="#FFFF4757"
+                    android:textAllCaps="false"
+                    app:strokeColor="#4DFFFFFF"
+                    app:strokeWidth="1dp"
+                    app:cornerRadius="22dp"
+                    app:backgroundTint="#1AFFFFFF"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="12dp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/resetButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:text="Сброс"
-                android:textSize="13sp"
-                android:textColor="#FFFD7B54"
-                android:textAllCaps="false"
-                app:strokeColor="#4DFFFFFF"
-                app:strokeWidth="1dp"
-                app:cornerRadius="26dp"
-                app:backgroundTint="#1AFFFFFF"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/applyButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:text="Применить"
-                android:textSize="13sp"
-                android:textColor="#FF00D4AA"
-                android:textAllCaps="false"
-                app:strokeColor="#4DFFFFFF"
-                app:strokeWidth="1dp"
-                app:cornerRadius="26dp"
-                app:backgroundTint="#1AFFFFFF"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/cancelButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:text="Отмена"
-                android:textSize="13sp"
-                android:textColor="#FFFF4757"
-                android:textAllCaps="false"
-                app:strokeColor="#4DFFFFFF"
-                app:strokeWidth="1dp"
-                app:cornerRadius="26dp"
-                app:backgroundTint="#1AFFFFFF"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/saveButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:text="Сохранить"
-                android:textSize="13sp"
-                android:textColor="#FF4A90E2"
-                android:textAllCaps="false"
-                app:strokeColor="#4DFFFFFF"
-                app:strokeWidth="1dp"
-                app:cornerRadius="26dp"
-                app:backgroundTint="#1AFFFFFF"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/saveButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:text="Сохранить"
+                    android:textSize="11sp"
+                    android:textColor="#FF4A90E2"
+                    android:textAllCaps="false"
+                    app:strokeColor="#4DFFFFFF"
+                    app:strokeWidth="1dp"
+                    app:cornerRadius="22dp"
+                    app:backgroundTint="#1AFFFFFF"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

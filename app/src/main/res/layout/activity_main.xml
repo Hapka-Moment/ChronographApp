@@ -5,413 +5,405 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background_gradient"
-    android:padding="16dp">
+    android:fitsSystemWindows="true">
 
-    <!-- Toolbar -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <!-- Status bar spacing -->
+    <View
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/glass_toolbar_background"
-        app:title="Хронограф"
-        app:titleTextColor="@color/text_primary"
-        app:navigationIcon="@drawable/ic_chronograph"
-        app:elevation="0dp"
-        style="@style/Widget.MaterialComponents.Toolbar"/>
+        android:background="@drawable/glass_toolbar_background"/>
 
-    <!-- Карточка подключения -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/connectionCard"
+    <!-- Content -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
-        app:cardBackgroundColor="@color/glass_white_20"
-        app:cardCornerRadius="28dp"
-        app:strokeColor="@color/glass_white_30"
-        app:strokeWidth="1dp"
-        app:cardElevation="0dp"
-        app:rippleColor="@color/glass_white_10"
-        style="@style/Widget.MaterialComponents.CardView">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
 
+        <!-- Toolbar -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/glass_toolbar_background"
+            app:title="Хронограф"
+            app:titleTextColor="@color/text_primary"
+            app:navigationIcon="@drawable/ic_chronograph"
+            app:elevation="0dp"
+            style="@style/Widget.MaterialComponents.Toolbar"/>
+
+        <!-- Карточка подключения -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/connectionCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/glass_white_20"
+            app:cardCornerRadius="24dp"
+            app:strokeColor="@color/glass_white_30"
+            app:strokeWidth="1dp"
+            app:cardElevation="0dp"
+            app:rippleColor="@color/glass_white_10"
+            style="@style/Widget.MaterialComponents.CardView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/connectionStatusIcon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_bluetooth"
+                    app:tint="#FFFFFF"
+                    android:background="@drawable/circle_background_blue"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:id="@+id/connectionStatusText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Не подключено"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="sans-serif-medium"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
+
+                    <TextView
+                        android:id="@+id/deviceNameText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="HC-05 хронограф"
+                        android:textSize="12sp"
+                        android:textColor="#80FFFFFF"
+                        android:layout_marginTop="2dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/connectionHintText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ПОДКЛЮЧИТЬ"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF4A90E2"
+                    android:background="@drawable/pill_background_blue"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:letterSpacing="0.05"
+                    android:maxLines="1"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Основные показатели -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/glass_white_20"
+            app:cardCornerRadius="28dp"
+            app:strokeColor="@color/glass_white_30"
+            app:strokeWidth="1dp"
+            app:cardElevation="0dp"
+            style="@style/Widget.MaterialComponents.CardView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ТЕКУЩИЙ ВЫСТРЕЛ"
+                    android:textSize="10sp"
+                    android:textColor="#80FFFFFF"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="24dp">
+
+                    <!-- Скорость -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="СКОРОСТЬ"
+                            android:textSize="10sp"
+                            android:textColor="#80FFFFFF"
+                            android:letterSpacing="0.08"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/velocityText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="---"
+                            android:textSize="40sp"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-light"
+                            android:letterSpacing="-0.02"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="м/с"
+                            android:textSize="11sp"
+                            android:textColor="#80FFFFFF"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="60dp"
+                        android:layout_marginHorizontal="12dp"
+                        android:background="#33FFFFFF"/>
+
+                    <!-- Энергия -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ЭНЕРГИЯ"
+                            android:textSize="10sp"
+                            android:textColor="#80FFFFFF"
+                            android:letterSpacing="0.08"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/energyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="---"
+                            android:textSize="40sp"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-light"
+                            android:letterSpacing="-0.02"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Дж"
+                            android:textSize="11sp"
+                            android:textColor="#80FFFFFF"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Статистика -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/glass_stats_background"
+                    android:padding="12dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="СЧЕТЧИК"
+                            android:textSize="9sp"
+                            android:textColor="#80FFFFFF"
+                            android:letterSpacing="0.08"/>
+
+                        <TextView
+                            android:id="@+id/shotCountText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="20sp"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="2dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="выстрелов"
+                            android:textSize="9sp"
+                            android:textColor="#80FFFFFF"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ТЕМП"
+                            android:textSize="9sp"
+                            android:textColor="#80FFFFFF"
+                            android:letterSpacing="0.08"/>
+
+                        <TextView
+                            android:id="@+id/rpmText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="---"
+                            android:textSize="20sp"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="2dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="выстр/мин"
+                            android:textSize="9sp"
+                            android:textColor="#80FFFFFF"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="МАССА"
+                            android:textSize="9sp"
+                            android:textColor="#80FFFFFF"
+                            android:letterSpacing="0.08"/>
+
+                        <TextView
+                            android:id="@+id/massText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0.25"
+                            android:textSize="20sp"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="2dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="грамм"
+                            android:textSize="9sp"
+                            android:textColor="#80FFFFFF"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Кнопки управления -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="20dp"
-            android:gravity="center_vertical">
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:paddingHorizontal="4dp">
 
-            <!-- Иконка Bluetooth -->
-            <ImageView
-                android:id="@+id/connectionStatusIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_bluetooth"
-                android:tint="#FFFFFF"
-                android:background="@drawable/circle_background_blue"/>
-
-            <LinearLayout
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/historyButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="16dp">
-
-                <TextView
-                    android:id="@+id/connectionStatusText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Не подключено"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:fontFamily="sans-serif-medium"/>
-
-                <TextView
-                    android:id="@+id/deviceNameText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="HC-05 хронограф"
-                    android:textSize="14sp"
-                    android:textColor="#80FFFFFF"
-                    android:layout_marginTop="2dp"/>
-
-            </LinearLayout>
-
-            <!-- Кнопка подключения -->
-            <TextView
-                android:id="@+id/connectionHintText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ПОДКЛЮЧИТЬ"
-                android:textSize="12sp"
-                android:textColor="#FF4A90E2"
-                android:textStyle="bold"
-                android:background="@drawable/pill_background_blue"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
-                android:letterSpacing="0.05"/>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Основные показатели -->
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/glass_white_20"
-        app:cardCornerRadius="32dp"
-        app:strokeColor="@color/glass_white_30"
-        app:strokeWidth="1dp"
-        app:cardElevation="0dp"
-        style="@style/Widget.MaterialComponents.CardView">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
-
-            <!-- Заголовок -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ТЕКУЩИЙ ВЫСТРЕЛ"
+                android:layout_marginHorizontal="4dp"
+                android:text="История"
                 android:textSize="11sp"
-                android:textColor="#80FFFFFF"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:layout_marginBottom="20dp"/>
+                android:textColor="#FFFFFF"
+                android:letterSpacing="0.02"
+                app:icon="@drawable/ic_history"
+                app:iconSize="16dp"
+                app:iconPadding="2dp"
+                app:iconTint="#FFFFFF"
+                app:strokeColor="#4DFFFFFF"
+                app:strokeWidth="1dp"
+                app:cornerRadius="22dp"
+                app:backgroundTint="#1AFFFFFF"/>
 
-            <!-- Скорость и энергия -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="28dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/massButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:text="Масса"
+                android:textSize="11sp"
+                android:textColor="#FFFFFF"
+                android:letterSpacing="0.02"
+                app:icon="@drawable/ic_weight"
+                app:iconSize="16dp"
+                app:iconPadding="2dp"
+                app:iconTint="#FFFFFF"
+                app:strokeColor="#4DFFFFFF"
+                app:strokeWidth="1dp"
+                app:cornerRadius="22dp"
+                app:backgroundTint="#1AFFFFFF"/>
 
-                <!-- Скорость -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="СКОРОСТЬ"
-                        android:textSize="10sp"
-                        android:textColor="#80FFFFFF"
-                        android:letterSpacing="0.08"
-                        android:layout_marginBottom="4dp"/>
-
-                    <TextView
-                        android:id="@+id/velocityText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="---"
-                        android:textSize="44sp"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-light"
-                        android:letterSpacing="-0.02"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="м/с"
-                        android:textSize="12sp"
-                        android:textColor="#80FFFFFF"
-                        android:layout_marginTop="2dp"/>
-
-                </LinearLayout>
-
-                <!-- Разделитель -->
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="64dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="#33FFFFFF"/>
-
-                <!-- Энергия -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ЭНЕРГИЯ"
-                        android:textSize="10sp"
-                        android:textColor="#80FFFFFF"
-                        android:letterSpacing="0.08"
-                        android:layout_marginBottom="4dp"/>
-
-                    <TextView
-                        android:id="@+id/energyText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="---"
-                        android:textSize="44sp"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-light"
-                        android:letterSpacing="-0.02"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Дж"
-                        android:textSize="12sp"
-                        android:textColor="#80FFFFFF"
-                        android:layout_marginTop="2dp"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Статистика -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/glass_stats_background"
-                android:padding="16dp">
-
-                <!-- Счетчик -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="СЧЕТЧИК"
-                        android:textSize="9sp"
-                        android:textColor="#80FFFFFF"
-                        android:letterSpacing="0.08"/>
-
-                    <TextView
-                        android:id="@+id/shotCountText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="24sp"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="2dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="выстрелов"
-                        android:textSize="9sp"
-                        android:textColor="#80FFFFFF"/>
-
-                </LinearLayout>
-
-                <!-- Темп -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ТЕМП"
-                        android:textSize="9sp"
-                        android:textColor="#80FFFFFF"
-                        android:letterSpacing="0.08"/>
-
-                    <TextView
-                        android:id="@+id/rpmText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="---"
-                        android:textSize="24sp"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="2dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="выстр/мин"
-                        android:textSize="9sp"
-                        android:textColor="#80FFFFFF"/>
-
-                </LinearLayout>
-
-                <!-- Масса -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="МАССА"
-                        android:textSize="9sp"
-                        android:textColor="#80FFFFFF"
-                        android:letterSpacing="0.08"/>
-
-                    <TextView
-                        android:id="@+id/massText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0.25"
-                        android:textSize="24sp"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="2dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="грамм"
-                        android:textSize="9sp"
-                        android:textColor="#80FFFFFF"/>
-
-                </LinearLayout>
-            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/resetButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:text="Сброс"
+                android:textSize="11sp"
+                android:textColor="#FFFFFF"
+                android:letterSpacing="0.02"
+                app:icon="@drawable/ic_reset"
+                app:iconSize="16dp"
+                app:iconPadding="2dp"
+                app:iconTint="#FFFFFF"
+                app:strokeColor="#4DFFFFFF"
+                app:strokeWidth="1dp"
+                app:cornerRadius="22dp"
+                app:backgroundTint="#1AFFFFFF"/>
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Кнопки управления -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:paddingHorizontal="8dp">
-
-        <!-- История -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/historyButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:text="История"
-            android:textSize="13sp"
-            android:textColor="#FFFFFF"
-            android:letterSpacing="0.02"
-            app:icon="@drawable/ic_history"
-            app:iconTint="#FFFFFF"
-            app:strokeColor="#4DFFFFFF"
-            app:strokeWidth="1dp"
-            app:cornerRadius="26dp"
-            app:backgroundTint="#1AFFFFFF"/>
-
-        <!-- Масса -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/massButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="8dp"
-            android:text="Масса"
-            android:textSize="13sp"
-            android:textColor="#FFFFFF"
-            android:letterSpacing="0.02"
-            app:icon="@drawable/ic_weight"
-            app:iconTint="#FFFFFF"
-            app:strokeColor="#4DFFFFFF"
-            app:strokeWidth="1dp"
-            app:cornerRadius="26dp"
-            app:backgroundTint="#1AFFFFFF"/>
-
-        <!-- Сброс -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/resetButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:text="Сброс"
-            android:textSize="13sp"
-            android:textColor="#FFFFFF"
-            android:letterSpacing="0.02"
-            app:icon="@drawable/ic_reset"
-            app:iconTint="#FFFFFF"
-            app:strokeColor="#4DFFFFFF"
-            app:strokeWidth="1dp"
-            app:cornerRadius="26dp"
-            app:backgroundTint="#1AFFFFFF"/>
-
     </LinearLayout>
-
-    <!-- Индикатор подключения -->
-    <TextView
-        android:id="@+id/connectionIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_gravity="center"
-        android:text="●"
-        android:textSize="14sp"
-        android:textColor="#FF4A90E2"
-        android:background="@drawable/circle_background_indicator"
-        android:padding="8dp"/>
-
 </LinearLayout>
