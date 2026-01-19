@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Основной градиент -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#0D1A2A"
+                android:endColor="#1C2B3E"
+                android:angle="135"/>
+        </shape>
+    </item>
+</layer-list>
