@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Glassmorphism цвета -->
+    <color name="glass_primary">#FF4A90E2</color>
+    <color name="glass_primary_variant">#FF357ABD</color>
+    <color name="glass_secondary">#FF6C5CE7</color>
+    <color name="glass_secondary_variant">#FF5A4BC2</color>
 
+    <!-- Фоновые цвета -->
+    <color name="glass_background">#0D1A2A</color>
+    <color name="glass_surface">#1C2B3E</color>
+    <color name="glass_overlay">#263445</color>
+
+    <!-- Полупрозрачные цвета для стекла -->
+    <color name="glass_white_10">#1AFFFFFF</color>
+    <color name="glass_white_20">#33FFFFFF</color>
+    <color name="glass_white_30">#4DFFFFFF</color>
+    <color name="glass_white_40">#66FFFFFF</color>
+    <color name="glass_white_50">#80FFFFFF</color>
+
+    <!-- Акцентные цвета -->
+    <color name="glass_blue">#FF4A90E2</color>
+    <color name="glass_purple">#FF6C5CE7</color>
+    <color name="glass_green">#FF00D4AA</color>
+    <color name="glass_orange">#FFFD7B54</color>
+    <color name="glass_pink">#FFFF6B9D</color>
+    <color name="glass_red">#FFFF4757</color>
+
+    <!-- Текст -->
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#B3FFFFFF</color>
+    <color name="text_hint">#80FFFFFF</color>
+
+    <!-- Статусы -->
+    <color name="status_connected">#FF00D4AA</color>
+    <color name="status_disconnected">#FFFF4757</color>
+    <color name="status_connecting">#FFFD7B54</color>
 </resources>
