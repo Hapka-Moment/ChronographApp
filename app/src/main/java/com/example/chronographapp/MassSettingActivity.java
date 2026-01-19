@@ -32,7 +32,7 @@ public class MassSettingActivity extends AppCompatActivity {
         setupInitialValues();
         setupDigitButtons();
         setupDigitClickListeners();
-        setupActionButtons(); // Добавил эту строку!
+        setupActionButtons(); // Привязываем кнопки
         setupBackPressedHandler();
     }
 
@@ -135,16 +135,11 @@ public class MassSettingActivity extends AppCompatActivity {
         }
     }
 
-    // ДОБАВИЛ ЭТОТ МЕТОД ДЛЯ ПРИВЯЗКИ КНОПОК
+    // Привязка кнопок действий
     private void setupActionButtons() {
         MaterialButton resetButton = findViewById(R.id.resetButton);
         if (resetButton != null) {
             resetButton.setOnClickListener(v -> onResetClick());
-        }
-
-        MaterialButton applyButton = findViewById(R.id.applyButton);
-        if (applyButton != null) {
-            applyButton.setOnClickListener(v -> onApplyClick());
         }
 
         MaterialButton cancelButton = findViewById(R.id.cancelButton);
@@ -242,22 +237,6 @@ public class MassSettingActivity extends AppCompatActivity {
         updateDigitDisplay();
         setSelectedDigit(0);
         Toast.makeText(this, "Масса сброшена к 0.25г", Toast.LENGTH_SHORT).show();
-    }
-
-    public void onApplyClick() {
-        float newMass = calculateMassFromDigits();
-
-        if (newMass < 0.01f || newMass > 99.99f) {
-            Toast.makeText(this, "Масса должна быть от 0.01г до 99.99г", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        currentMass = newMass;
-        updateCurrentMassDisplay();
-
-        Toast.makeText(this,
-                String.format("Масса применена: %.2fг", newMass),
-                Toast.LENGTH_SHORT).show();
     }
 
     public void onSaveClick() {

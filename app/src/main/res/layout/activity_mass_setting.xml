@@ -25,7 +25,7 @@
             app:elevation="0dp"
             style="@style/Widget.MaterialComponents.Toolbar"/>
 
-        <!-- Остальной контент без изменений -->
+        <!-- Карточка текущей массы -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -376,89 +376,74 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Кнопки управления -->
+        <!-- Упрощенные кнопки управления - только 3 кнопки в один ряд -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="4dp">
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:paddingHorizontal="4dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/resetButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:text="Сброс"
+                android:textSize="12sp"
+                android:textColor="#FFFD7B54"
+                android:textAllCaps="false"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:strokeColor="#4DFFFFFF"
+                app:strokeWidth="1dp"
+                app:cornerRadius="22dp"
+                app:backgroundTint="#1AFFFFFF"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/resetButton"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="6dp"
-                    android:text="Сброс"
-                    android:textSize="11sp"
-                    android:textColor="#FFFD7B54"
-                    android:textAllCaps="false"
-                    app:strokeColor="#4DFFFFFF"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="22dp"
-                    app:backgroundTint="#1AFFFFFF"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancelButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:text="Отмена"
+                android:textSize="12sp"
+                android:textColor="#FFFF4757"
+                android:textAllCaps="false"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:strokeColor="#4DFFFFFF"
+                app:strokeWidth="1dp"
+                app:cornerRadius="22dp"
+                app:backgroundTint="#1AFFFFFF"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/applyButton"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="6dp"
-                    android:text="Применить"
-                    android:textSize="11sp"
-                    android:textColor="#FF00D4AA"
-                    android:textAllCaps="false"
-                    app:strokeColor="#4DFFFFFF"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="22dp"
-                    app:backgroundTint="#1AFFFFFF"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/cancelButton"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="6dp"
-                    android:text="Отмена"
-                    android:textSize="11sp"
-                    android:textColor="#FFFF4757"
-                    android:textAllCaps="false"
-                    app:strokeColor="#4DFFFFFF"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="22dp"
-                    app:backgroundTint="#1AFFFFFF"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/saveButton"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="6dp"
-                    android:text="Сохранить"
-                    android:textSize="11sp"
-                    android:textColor="#FF4A90E2"
-                    android:textAllCaps="false"
-                    app:strokeColor="#4DFFFFFF"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="22dp"
-                    app:backgroundTint="#1AFFFFFF"/>
-            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:text="Сохранить"
+                android:textSize="12sp"
+                android:textColor="#FF4A90E2"
+                android:textAllCaps="false"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:strokeColor="#4DFFFFFF"
+                app:strokeWidth="1dp"
+                app:cornerRadius="22dp"
+                app:backgroundTint="#1AFFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

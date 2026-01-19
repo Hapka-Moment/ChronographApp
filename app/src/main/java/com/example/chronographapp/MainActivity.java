@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
             massButton.setOnClickListener(v -> openMassSettingsActivity());
         }
 
-        // Кнопка сброса
+        // Кнопка сброса - ИСПРАВЛЕНО
         if (resetButton != null) {
             resetButton.setOnClickListener(v -> resetCounter());
         }
@@ -369,6 +369,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // МЕТОД resetCounter() - ДОБАВЛЕН
     private void resetCounter() {
         shotCount = 0;
         velocityHistory.clear();
