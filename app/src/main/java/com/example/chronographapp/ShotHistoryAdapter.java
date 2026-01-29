@@ -13,6 +13,10 @@ public class ShotHistoryAdapter extends RecyclerView.Adapter<ShotHistoryAdapter.
     private List<ShotData> shotList;
     private OnShotClickListener onShotClickListener;
 
+    private static final float HIGH_VELOCITY = 180f;
+    private static final float MEDIUM_VELOCITY = 160f;
+    private static final float LOW_VELOCITY = 140f;
+
     public interface OnShotClickListener {
         void onShotClick(int position, ShotData shot);
         void onShotLongClick(int position, ShotData shot);
@@ -38,16 +42,13 @@ public class ShotHistoryAdapter extends RecyclerView.Adapter<ShotHistoryAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ShotData shot = shotList.get(position);
 
-        // В новом дизайне отображаем номера с начала
         holder.shotNumberText.setText(String.format("#%d", shot.getShotNumber()));
         holder.timestampText.setText(shot.getTimestamp());
         holder.velocityText.setText(String.format("%.1f м/с", shot.getVelocity()));
         holder.energyText.setText(String.format("%.2f Дж", shot.getEnergy()));
 
-        // Настройка цвета скорости
         setVelocityColor(holder.velocityText, shot.getVelocity());
 
-        // Обработчики кликов
         holder.itemView.setOnClickListener(v -> {
             if (onShotClickListener != null) {
                 onShotClickListener.onShotClick(position, shot);
@@ -64,19 +65,18 @@ public class ShotHistoryAdapter extends RecyclerView.Adapter<ShotHistoryAdapter.
     }
 
     private void setVelocityColor(TextView velocityText, float velocity) {
-        // Используем цвета из glass палитры
-        int colorResource = R.color.glass_blue; // по умолчанию
-        if (velocity > 180) {
+        int colorResource;
+
+        if (velocity > HIGH_VELOCITY) {
             colorResource = R.color.glass_red;
-        } else if (velocity > 160) {
+        } else if (velocity > MEDIUM_VELOCITY) {
             colorResource = R.color.glass_orange;
-        } else if (velocity > 140) {
+        } else if (velocity > LOW_VELOCITY) {
             colorResource = R.color.glass_green;
         } else {
             colorResource = R.color.glass_blue;
         }
 
-        // Устанавливаем цвет через ресурс
         velocityText.setTextColor(velocityText.getContext().getColor(colorResource));
     }
 

@@ -4,14 +4,12 @@ plugins {
 
 android {
     namespace = "com.example.chronographapp"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 34  // ← ИСПРАВЛЕНО: просто число, не version = release(36)
 
     defaultConfig {
         applicationId = "com.example.chronographapp"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 34  // ← МОЖНО 34 вместо 36
         versionCode = 1
         versionName = "1.0"
 
@@ -31,17 +29,21 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
-    implementation("com.google.android.material:material:1.10.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
+    implementation("androidx.preference:preference:1.2.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("com.google.android.material:material:1.9.0")
-
 }
